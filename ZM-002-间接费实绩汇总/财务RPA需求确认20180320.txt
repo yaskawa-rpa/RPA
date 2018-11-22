@@ -1,0 +1,34 @@
+
+1.SAP：ZCOR5060下载数据，根据条件（会计年度，会计期间，选择总价导出），下载Excel文件（电子表格），并Copy到一个汇总Excel。（暂时不对应）
+2.把汇总的sheetCopy到现在实绩文件中，根据月份新增一个新的sheet。
+ 1）针对每个sheet，当月计划copy到前回计划；本期見通し→前回見通し
+ 2）针对红色sheet，当月计划（名字）修改为实绩，从上个月实际Copy到当月计划（带公式），Link的sheet修改为新的sheet。
+
+开发逻辑：
+1）读取设定
+2）读取文件
+3）先从SAP数据Copysheet到实绩汇总文件，取名【YYMM间接费】，需要删除文件Link
+4）循环设定中的部门列表：
+  4-1）如果带有Y标记的，需要Copy2-1）和2-2）的内容。
+  4-2）如果没有带Y标记的，只需要Copy2-1）的内容。
+
+
+'删除文件Link
+Sub UseBreakLink()
+
+ Dim astrLinks As Variant
+
+ ' Define variable as an Excel link type.
+ astrLinks = ActiveWorkbook.LinkSources(Type:=xlLinkTypeExcelLinks)
+
+ ' Break the first link in the active workbook.
+ ActiveWorkbook.BreakLink _
+ Name:=astrLinks(1), _
+ Type:=xlLinkTypeExcelLinks
+
+End Sub
+
+
+当月	上月	見通し	前回見通し	前回計画
+
+

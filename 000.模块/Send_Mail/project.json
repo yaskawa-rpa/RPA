@@ -1,0 +1,14 @@
+{
+  "name": "Send_Mail",
+  "description": "邮件发送模块",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6516.20707",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

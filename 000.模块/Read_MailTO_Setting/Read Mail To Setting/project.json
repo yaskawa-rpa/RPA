@@ -1,0 +1,14 @@
+{
+  "name": "Read Mail To Setting",
+  "description": "Read Mail To Setting",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6688.26292",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

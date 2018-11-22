@@ -1,0 +1,649 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UploadKaihyoData"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="strResult" Type="OutArgument(x:String)" />
+    <x:Property Name="strMessage" Type="OutArgument(x:String)" />
+    <x:Property Name="strXMLFile" Type="InArgument(x:String)" />
+    <x:Property Name="strWebServiceXMLFormatFile" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>UploadKaihyoData_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Net.Http</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Xml.XPath</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Net.Http.WebRequest</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="UploadKaihyoData" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="AppID" />
+      <Variable x:TypeArguments="x:String" Name="AppKey" />
+      <Variable x:TypeArguments="x:String" Name="WebServiceUrl" />
+      <Variable x:TypeArguments="x:String" Name="strRemoteTimeStamp" />
+      <Variable x:TypeArguments="x:String" Name="strBillData" />
+      <Variable x:TypeArguments="x:String" Name="strParamOpertion" />
+      <Variable x:TypeArguments="x:String" Name="strParamDataType" />
+      <Variable x:TypeArguments="x:String" Name="strSign" />
+      <Variable x:TypeArguments="x:String" Name="strDataForSign" />
+      <Variable x:TypeArguments="x:String" Name="strDataUpload" />
+      <Variable x:TypeArguments="x:Object" Name="xmlNode" />
+      <Variable x:TypeArguments="x:String" Name="strResultCode" />
+      <Variable x:TypeArguments="x:String" Name="strResultMessage" />
+    </Sequence.Variables>
+    <Sequence DisplayName="Initialize params" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[AppID]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">31018001</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[AppKey]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">OPK_C61D3B7E593F50EAD0E887E6DFC7E517</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[WebServiceUrl]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">http://open.qlist.cn/api/bill/default.asmx</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign(means to add bill)" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strParamOpertion]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">0</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign(means not encoded xml data)" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strParamDataType]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">0</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="invoke the web service " sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sxl:XDocument" Name="xmldoc" />
+      </Sequence.Variables>
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_12">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_19">
+            <Sequence DisplayName="invoke web service with httprequest with xml " sap2010:WorkflowViewState.IdRef="Sequence_17">
+              <ui:ReadTextFile Content="[strBillData]" DisplayName="Read xml data for soap request" Encoding="UTF-8" FileName="D:\Work\2.RPA关联\(財務)\财务开票业务RPA\开票系统接口\test-data4.xml" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim webRequest As HttpWebRequest&#xA;webRequest = DirectCast(HttpWebRequest.Create(url),HttpWebRequest)&#xA;'soap1.1&#xA;webRequest.ContentType = &quot;text/xml;charset=UTF-8&quot;&#xA;'soap1.2&#xA;'webRequest.ContentType = &quot;application/soap+xml;charset=UTF-8&quot;&#xA;webRequest.Method = &quot;POST&quot;&#xA;&#xA;&#xA;Dim byteArray As Byte()&#xA;byteArray = Encoding.UTF8.GetBytes(strRequestData)&#xA;webrequest.GetRequestStream.Write(byteArray,0,byteArray.Count)&#xA;webrequest.GetRequestStream.Close&#xA;&#xA;Dim temp As String = New StreamReader(webRequest.GetResponse().GetResponseStream()).ReadToEnd()&#xA;&#xA;Dim doc As XmlDocument = New XmlDocument()&#xA;doc.LoadXml(temp.Replace(&quot;soap:&quot;,&quot;&quot;))&#xA;Dim nodes As XmlNodeList&#xA;nodes=doc.SelectNodes(&quot;Envelope/Body&quot;)&#xA;If nodes Is Nothing Then&#xA; temp=&quot;blank&quot;&#xA;Else&#xA; If nodes.Count&gt;0 Then&#xA; strReponse= nodes(0).InnerText&#xA; End If&#xA;End If " DisplayName="Invoke code" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+                <ui:InvokeCode.Arguments>
+                  <OutArgument x:TypeArguments="x:String" x:Key="strReponse">[strResult]</OutArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="strRequestData">[strBillData]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="url">[WebServiceUrl]</InArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+              <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Result=&quot; &amp; strResult]" />
+            </Sequence>
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_13">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_20">
+            <ui:ReadTextFile Content="[strBillData]" DisplayName="Read bill to upload" Encoding="UTF-8" FileName="D:\Work\2.RPA关联\(財務)\财务开票业务RPA\开票系统接口\test-data3.xml" sap2010:WorkflowViewState.IdRef="ReadTextFile_2" />
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:ReadTextFile Content="[strBillData]" DisplayName="Read bill to upload" Encoding="UTF-8" FileName="[strXMLFile]" sap2010:WorkflowViewState.IdRef="ReadTextFile_4" />
+      <Assign DisplayName="replace the return line" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strBillData]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strBillData.Replace(vbcrlf,"")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:CommentOut DisplayName="Comment out">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities">
+            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;strBillData=&quot; &amp; strBillData]" />
+            <sap2010:WorkflowViewState.IdRef>Sequence_24</sap2010:WorkflowViewState.IdRef>
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap2010:WorkflowViewState.IdRef>CommentOut_17</sap2010:WorkflowViewState.IdRef>
+      </ui:CommentOut>
+      <ui:SoapClient ClientCertificate="{x:Null}" ContinueOnError="{x:Null}" Password="{x:Null}" Username="{x:Null}" ContractName="OpenBillSoap" DisplayName="SOAP Request(get cloud timestamp)" EndPoint="[WebServiceUrl]" sap2010:WorkflowViewState.IdRef="SoapClient_4" Method="GetRemoteTimeStamp" Result="[strRemoteTimeStamp]" UseWindowsCredentials="False">
+        <ui:SoapClient.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+        </ui:SoapClient.Parameters>
+      </ui:SoapClient>
+      <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;RemoteTimestamp=&quot; &amp; strRemoteTimeStamp]" />
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strDataForSign]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[AppID &amp; "&amp;" &amp; strParamOpertion &amp; "&amp;" &amp; strBillData &amp; "&amp;" &amp; strParamDataType &amp; "&amp;" &amp; strRemoteTimeStamp]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_15">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_22">
+            <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;strDataForSign=&quot; &amp; strDataForSign]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim StringToHash As String,  HachKey As String&#xA;StringToHash=strData&#xA;HachKey=strKey&#xA;&#xA;    Dim myEncoder As New System.Text.UTF8Encoding&#xA;    Dim Key() As Byte = myEncoder.GetBytes(HachKey)&#xA;    Dim Text() As Byte = myEncoder.GetBytes(StringToHash)&#xA;    Dim myHMACMD5 As New System.Security.Cryptography.HMACMD5(Key)&#xA;    Dim HashCode As Byte() = myHMACMD5.ComputeHash(Text)&#xA;     &#xA; Dim hash As String = Strings.Replace(BitConverter.ToString(HashCode), &quot;-&quot;, &quot;&quot;)&#xA; strResult= hash.ToUpper&#xA; 'strResult= hash&#xA; 'strResult=HashCode.ToString&#xA;" DisplayName="Invoke code(encode bill data to sign)" sap2010:WorkflowViewState.IdRef="InvokeCode_4">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="strKey">[AppKey]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="strData">[strDataForSign]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="strResult">[strSign]</OutArgument>
+        </ui:InvokeCode.Arguments>
+      </ui:InvokeCode>
+      <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;strDataAfterSigned=&quot; &amp; strSign]" />
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_9">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_15">
+            <ui:SoapClient ClientCertificate="{x:Null}" ContinueOnError="{x:Null}" Password="{x:Null}" Username="{x:Null}" ContractName="OpenBillSoap" DisplayName="SOAP Request" EndPoint="http://open.qlist.cn/api/bill/default.asmx" sap2010:WorkflowViewState.IdRef="SoapClient_5" Method="UploadVATBills" UseWindowsCredentials="False">
+              <ui:SoapClient.Parameters>
+                <InArgument x:TypeArguments="x:Int32" x:Key="AppID">[AppID]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="Operation">[Integer.Parse(strParamOpertion)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="BillData">[strBillData]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="DataType">[Integer.Parse(strParamDataType)]</InArgument>
+                <InArgument x:TypeArguments="x:Int64" x:Key="TimeStamp">[Long.Parse(strRemoteTimeStamp)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="Sign">[strSign]</InArgument>
+              </ui:SoapClient.Parameters>
+            </ui:SoapClient>
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_16">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_23">
+            <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Result=&quot; &amp; strResult]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_14">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_21">
+            <ui:ReadTextFile Content="[strDataUpload]" DisplayName="Read web service request format file " Encoding="UTF-8" FileName="D:\Work\2.RPA关联\(財務)\财务开票业务RPA\开票系统接口\test-data6.xml" sap2010:WorkflowViewState.IdRef="ReadTextFile_3" />
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <ui:ReadTextFile Content="[strDataUpload]" DisplayName="Read web service request format file " Encoding="UTF-8" FileName="[strWebServiceXMLFormatFile]" sap2010:WorkflowViewState.IdRef="ReadTextFile_5" />
+      <Assign DisplayName="escape special char" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strBillData]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strBillData.Replace("&amp;","&amp;amp;").Replace("&lt;","&amp;lt;").Replace("&gt;","&amp;gt;")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[strBillData]" />
+      <Assign DisplayName="replace the parameters" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strDataUpload]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strDataUpload.Replace("?appid?",appid.ToString).Replace("?TimeStamp?",strremotetimestamp).Replace("?SignData?",strSign).Replace("?BillData?",strBillData)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:HttpClient ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="XML" Body="[strDataUpload]" BodyFormat="text/xml;charset=utf-8" DisplayName="HTTP Request upload bills" EndPoint="[WebServiceUrl]" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="POST" Result="[strResult]" TimeoutMS="6000">
+        <ui:HttpClient.Attachments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Attachments>
+        <ui:HttpClient.Headers>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Headers>
+        <ui:HttpClient.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Parameters>
+        <ui:HttpClient.UrlSegments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.UrlSegments>
+      </ui:HttpClient>
+      <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Result=&quot; &amp; strResult]" />
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim doc As XmlDocument = New XmlDocument()&#xA;doc.LoadXml(temp.Replace(&quot;soap:&quot;,&quot;&quot;))&#xA;Dim nodes As XmlNodeList&#xA;nodes=doc.SelectNodes(&quot;Envelope/Body&quot;)&#xA;If nodes Is Nothing Then&#xA; 'temp=&quot;blank&quot;&#xA;Else&#xA; If nodes.Count&gt;0 Then&#xA; strReponse= nodes(0).InnerText&#xA; End If&#xA;End If " DisplayName="parse the response " sap2010:WorkflowViewState.IdRef="InvokeCode_6">
+        <ui:InvokeCode.Arguments>
+          <OutArgument x:TypeArguments="x:String" x:Key="strReponse">[strResult]</OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="temp">[strResult]</InArgument>
+        </ui:InvokeCode.Arguments>
+      </ui:InvokeCode>
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strResultCode]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[left(strresult,instr(strresult,"&lt;")-1)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="[&quot;ResultCode=&quot; &amp; strResultCode]" />
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strResultMessage]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mid(strresult,instr(strresult,"&lt;Message&gt;"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="[&quot;ResultMessage=&quot; &amp; strResultMessage]" />
+      <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;ParsedResult=&quot; &amp; strResult]" />
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strResult]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strResultCode]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strMessage]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[strResultMessage]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_8">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_14">
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim xml As String&#xA;xml=strUpload&#xA;'xml = xml.Replace(&quot;?appid?&quot;,appid).Replace(&quot;?Operation?&quot;,operation).Replace(&quot;?TimeStamp?&quot;,timestamp).Replace(&quot;?SignData?&quot;,SignData).Replace(&quot;?DataType?&quot;,datatype).Replace(&quot;?BillData?&quot;,billdata)&#xA;&#xA;Dim webRequest As HttpWebRequest&#xA;webRequest = DirectCast(HttpWebRequest.Create(&quot;http://open.qlist.cn/api/bill/default.asmx&quot;),HttpWebRequest)&#xA;'soap1.1&#xA;webRequest.ContentType = &quot;text/xml;charset=UTF-8&quot;&#xA;'webRequest.Headers.Add(&quot;SOAP:Action&quot;)&#xA;'soap1.2&#xA;'webRequest.ContentType = &quot;application/soap+xml;charset=UTF-8&quot;&#xA;webRequest.Method = &quot;POST&quot;&#xA;&#xA;&#xA;Dim byteArray As Byte()&#xA;byteArray = Encoding.UTF8.GetBytes(xml)&#xA;webrequest.GetRequestStream.Write(byteArray,0,byteArray.Count)&#xA;webrequest.GetRequestStream.Close&#xA;&#xA;strReponse= New StreamReader(webRequest.GetResponse().GetResponseStream()).ReadToEnd()" DisplayName="Invoke code" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+            <ui:InvokeCode.Arguments>
+              <OutArgument x:TypeArguments="x:String" x:Key="strReponse">[strResult]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Appid">[AppID.ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Operation">0</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="DataType">0</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="SignData">[strSign]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="BillData">[strBillData]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="TimeStamp">[strRemoteTimeStamp]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="strUpload">[strDataUpload]</InArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_4">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim xml As String&#xA;xml = &quot;&quot;&#xA;xml = xml &amp; &quot; &lt;?xml version=&quot;&quot;1.0&quot;&quot; encoding=&quot;&quot;utf-8&quot;&quot;?&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;soap:Envelope xmlns:xsi=&quot;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&quot; xmlns:xsd=&quot;&quot;http://www.w3.org/2001/XMLSchema&quot;&quot; xmlns:soap=&quot;&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&quot;&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;soap:Body&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;UploadVATBills xmlns=&quot;&quot;http://qlist.cn/webservices/&quot;&quot;&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;AppID&gt;&quot; &amp; appid &amp; &quot;&lt;/AppID&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;Operation&gt;&quot; &amp; Operation &amp; &quot;&lt;/Operation&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;BillData&gt;&quot; &amp; BillData &amp;  &quot; &lt;/BillData&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;DataType&gt;&quot; &amp; DataType &amp; &quot;&lt;/DataType&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;TimeStamp&gt;&quot; &amp; TimeStamp &amp;&quot;&lt;/TimeStamp&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;Sign&gt;&quot; &amp; SignData &amp; &quot;&lt;/Sign&gt;&quot;&#xA;xml = xml &amp; &quot;&lt;/UploadVATBills&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;&quot;&#xA;Dim webRequest As HttpWebRequest&#xA;webRequest = DirectCast(HttpWebRequest.Create(&quot;http://open.qlist.cn/api/bill/default.asmx&quot;),HttpWebRequest)&#xA;'soap1.1&#xA;webRequest.ContentType = &quot;text/xml;charset=UTF-8&quot;&#xA;'soap1.2&#xA;'webRequest.ContentType = &quot;application/soap+xml;charset=UTF-8&quot;&#xA;webRequest.Method = &quot;POST&quot;&#xA;&#xA;&#xA;Dim byteArray As Byte()&#xA;byteArray = Encoding.UTF8.GetBytes(xml)&#xA;webrequest.GetRequestStream.Write(byteArray,0,byteArray.Count)&#xA;webrequest.GetRequestStream.Close&#xA;&#xA;strReponse= New StreamReader(webRequest.GetResponse().GetResponseStream()).ReadToEnd()" DisplayName="Invoke code" sap2010:WorkflowViewState.IdRef="InvokeCode_5">
+            <ui:InvokeCode.Arguments>
+              <OutArgument x:TypeArguments="x:String" x:Key="strReponse">[strResult]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Appid">[AppID.ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Operation">0</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="DataType">0</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="SignData">[strSign]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="BillData">[strBillData]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="TimeStamp">[strRemoteTimeStamp]</InArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="Upload bill data successfully!" />
+    <sads:DebugSymbol.Symbol>d0JDOlxVc2Vyc1xodWFuZ3hpYW9oYW5cRG9jdW1lbnRzXFVpUGF0aFxaTTAxMVxVcGxvYWRLYWloeW9EYXRhLnhhbWxcTwPiAg4CAQFfBYgBEAIBd4kBBbwCEAIBBr0CBc4CFQIBBc8CBd8CFQIBBOACBeAClgECAQJgB2cQAwGIAWgHbxADAYQBcAd3EAMBgAF4B38QAgF8gAEHhwEQAgF4jQEHnQEXAgF2ngEHpAEXAgF1pQEHpQGuAQIBb6YBB60BEAIBa64BB7YBFwIBarcBB7sBFwIBY7wBB7wBsAECAWC9AQfEARACAVfFAQfLARcCAVbMAQfSARcCAU/TAQfTAagBAgFM1AEH4wEXAgFL5AEH6gEXAgFK6wEH8QEXAgFJ8gEH8gHSAQIBQ/MBB/oBEAIBPvsBB/sBcAIBO/wBB4MCEAIBMoQCB5ECFwIBKpICB5ICnwECASeTAgeYAhcCASKZAgegAhACAR6hAgehApABAgEbogIHqQIQAgEXqgIHqgKWAQIBFKsCB6sCpQECARGsAgezAhACAQy0Age7AhACAQfgAnPgApMBAgEDZTFlOQMBiwFiMmI5AwGJAW0ybVYDAYcBajNqOwMBhQF1MnVcAwGDAXIzckIDAYEBfTJ9MwIBf3ozekUCAX2FATKFATMCAXuCATOCAUUCAXmlAVulAWICAXSlAWylAXoCAXKlASClAS8CAXCrATKrAVICAW6oATOoAUACAWy3Aa8CtwHFAgIBaLcBywG3AdwBAgFmtwGDAbcBkQECAWW3AZMCtwGnAgIBZLwBdLwBrQECAWHCATLCAcoBAgFavwEzvwFDAgFYzgFBzgFJAgFU0AFF0AFOAgFSzwFCzwFSAgFQ0wF00wGlAQIBTfIBb/IBdgIBSPIBgAHyAZ4BAgFG8gEg8gExAgFE+AEy+AGSAQIBQfUBM/UBQAIBP/sBXvsBbQIBPIECMoECzQECATX+ATP+AUICATOEAvADhAL2AwIBMYQCmwKEAqwCAgEvhALYA4QC5QMCAS2EAoIDhAKTAwIBK5ICdZICnAECASiVAkaVAlECASWWAj+WAkoCASOeAjKeAl0CASGbAjObAkICAR+hAl6hAo0BAgEcpwIypwJlAgEapAIzpAJFAgEYqgJeqgKTAQIBFasCdasCogECARKxAjKxAkECAQ+uAjOuAj4CAQ25AjK5AkQCAQq2AjO2Aj8CAQg=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,584">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadTextFile_1" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_2" sap:VirtualizedContainerService.HintSize="314,164" />
+      <sap2010:ViewStateData Id="LogMessage_5" sap:VirtualizedContainerService.HintSize="314,92.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_17" sap:VirtualizedContainerService.HintSize="223.333333333333,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_19" sap:VirtualizedContainerService.HintSize="358,176">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_12" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadTextFile_2" sap:VirtualizedContainerService.HintSize="474,58.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_20" sap:VirtualizedContainerService.HintSize="496,182.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_13" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadTextFile_4" sap:VirtualizedContainerService.HintSize="314,58.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="213.333333333333,62" />
+      <sap2010:ViewStateData Id="Sequence_24" sap:VirtualizedContainerService.HintSize="235.333333333333,186">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_17" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SoapClient_4" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="LogMessage_6" sap:VirtualizedContainerService.HintSize="314,92.6666666666667" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="LogMessage_7" sap:VirtualizedContainerService.HintSize="314,92.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_22" sap:VirtualizedContainerService.HintSize="336,216.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_15" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_4" sap:VirtualizedContainerService.HintSize="314,164">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_8" sap:VirtualizedContainerService.HintSize="314,92.6666666666667" />
+      <sap2010:ViewStateData Id="SoapClient_5" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_9" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_9" sap:VirtualizedContainerService.HintSize="314,92.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_23" sap:VirtualizedContainerService.HintSize="336,216.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_16" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadTextFile_3" sap:VirtualizedContainerService.HintSize="474,58.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_21" sap:VirtualizedContainerService.HintSize="496,182.666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_14" sap:VirtualizedContainerService.HintSize="314,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadTextFile_5" sap:VirtualizedContainerService.HintSize="314,58.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="HttpClient_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="LogMessage_10" sap:VirtualizedContainerService.HintSize="314,92.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_6" sap:VirtualizedContainerService.HintSize="314,164" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="WriteLine_6" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="WriteLine_7" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="LogMessage_11" sap:VirtualizedContainerService.HintSize="314,92.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,3094">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_3" sap:VirtualizedContainerService.HintSize="314,164">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="336,288">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_8" sap:VirtualizedContainerService.HintSize="336,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_5" sap:VirtualizedContainerService.HintSize="314,164">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="336,288">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_4" sap:VirtualizedContainerService.HintSize="336,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_12" sap:VirtualizedContainerService.HintSize="336,92.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="358,4158.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="UploadKaihyoData_1" sap:VirtualizedContainerService.HintSize="398,4238.66666666667" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

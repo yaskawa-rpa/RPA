@@ -1,0 +1,14 @@
+{
+  "name": "CV_NewFile",
+  "description": "金库化服务器新建文件/文件夹模块",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6523.28239",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

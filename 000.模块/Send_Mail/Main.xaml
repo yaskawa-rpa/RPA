@@ -1,0 +1,476 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" this:Main.use_outlook="False"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:snm="clr-namespace:System.Net.Mail;assembly=System"
+ xmlns:this="clr-namespace:"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="use_outlook" Type="InArgument(x:Boolean)" />
+    <x:Property Name="error_message" Type="OutArgument(x:String)" />
+    <x:Property Name="result_succeed" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="send_mail_to" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_cc" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_bcc" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_subject" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_body" Type="InArgument(x:String)" />
+    <x:Property Name="smtp_sendername" Type="InArgument(x:String)" />
+    <x:Property Name="send_forward_mailmessage" Type="InArgument(snm:MailMessage)" />
+    <x:Property Name="send_mail_attachment1" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_attachment2" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_attachment3" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_attachment4" Type="InArgument(x:String)" />
+    <x:Property Name="send_mail_attachment5" Type="InArgument(x:String)" />
+    <x:Property Name="outlook_account" Type="InArgument(x:String)" />
+    <x:Property Name="smtp_account" Type="InArgument(x:String)" />
+    <x:Property Name="smtp_password" Type="InArgument(x:String)" />
+    <x:Property Name="auto_flag" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Main_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.TeamFoundation.Common</x:String>
+      <x:String>ActiproSoftware.Text.Languages.DotNet.Ast.Implementation</x:String>
+      <x:String>ActiproSoftware.Text.Parsing</x:String>
+      <x:String>ActiproSoftware.Text.Parsing.Implementation</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Client</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Common</AssemblyReference>
+      <AssemblyReference>ActiproSoftware.Text.Addons.DotNet.Wpf</AssemblyReference>
+      <AssemblyReference>ActiproSoftware.Text.Wpf</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch.Variables>
+      <Variable x:TypeArguments="x:String" Name="smtp_server" />
+      <Variable x:TypeArguments="x:Int32" Name="smtp_port" />
+    </TryCatch.Variables>
+    <TryCatch.Try>
+      <Sequence DisplayName="发送邮件" sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence DisplayName="发送服务器参数初始化" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <If Condition="[isnothing(outlook_account) or outlook_account=&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_3">
+            <If.Then>
+              <Assign sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[outlook_account]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">rpa@yaskawa.com.cn</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Then>
+          </If>
+          <Sequence DisplayName="SMTP方式参数" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <If Condition="[isnothing(smtp_account) or isnothing(smtp_password) or smtp_account=&quot;&quot; or smtp_password=&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_6">
+              <If.Then>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_12">
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_20">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[smtp_account]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">rpa@yaskawa.com.cn</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_21">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[smtp_password]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">1qaz@WSX</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Then>
+            </If>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_22">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[smtp_server]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">smtp.mxhichina.com</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_23">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[smtp_port]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">25</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[isnothing(smtp_sendername) or smtp_sendername=&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_26">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[smtp_sendername]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">RPA</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </If.Then>
+            </If>
+          </Sequence>
+        </Sequence>
+        <If Condition="[auto_flag]" sap2010:WorkflowViewState.IdRef="If_7">
+          <If.Then>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_28">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[send_mail_body]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[send_mail_body]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </If.Then>
+          <If.Else>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_27">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[send_mail_body]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[send_mail_body+vbCrLf+vbCrLf+"此邮件由系统自动发送，请勿回复此邮件，如有问题请联系相关人员。"+vbCrLf+"This email is sent by system. Please DO NOT reply this email. If you have any questions, please contact with whom concerned."]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </If.Else>
+        </If>
+        <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+          <ui:CommentOut.Body>
+            <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <Sequence DisplayName="test" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[use_outlook]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[send_mail_to]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">pzy@yaskawa.com.cn; rpa@yaskawa.com.cn</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_16">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[send_mail_cc]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[send_mail_subject]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">test</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[send_mail_body]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">test</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </Sequence>
+          </ui:CommentOut.Body>
+        </ui:CommentOut>
+        <Delay Duration="00:00:05" sap2010:WorkflowViewState.IdRef="Delay_1" />
+        <If Condition="[use_outlook]" sap2010:WorkflowViewState.IdRef="If_1">
+          <If.Then>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10">
+              <If Condition="[isnothing(send_mail_attachment1)]" sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Then>
+                  <ui:SendOutlookMail TimeoutMS="{x:Null}" Account="[outlook_account]" Bcc="[send_mail_bcc]" Body="[send_mail_body]" Cc="[send_mail_cc]" DisplayName="Send Outlook Mail Message" sap2010:WorkflowViewState.IdRef="SendOutlookMail_2" IsBodyHtml="False" IsDraft="False" MailMessage="[send_forward_mailmessage]" Subject="[send_mail_subject]" To="[send_mail_to]">
+                    <ui:SendOutlookMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8" />
+                    </ui:SendOutlookMail.Files>
+                  </ui:SendOutlookMail>
+                </If.Then>
+                <If.Else>
+                  <ui:SendOutlookMail TimeoutMS="{x:Null}" Account="[outlook_account]" Bcc="[send_mail_bcc]" Body="[send_mail_body]" Cc="[send_mail_cc]" DisplayName="Send Outlook Mail Message" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" IsBodyHtml="False" IsDraft="False" MailMessage="[send_forward_mailmessage]" Subject="[send_mail_subject]" To="[send_mail_to]">
+                    <ui:SendOutlookMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8">
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment1]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment2]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment3]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment4]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment5]</InArgument>
+                      </scg:List>
+                    </ui:SendOutlookMail.Files>
+                  </ui:SendOutlookMail>
+                </If.Else>
+              </If>
+            </Sequence>
+          </If.Then>
+          <If.Else>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_11">
+              <If Condition="[isnothing(send_mail_attachment1)]" sap2010:WorkflowViewState.IdRef="If_5">
+                <If.Then>
+                  <ui:SendMail From="{x:Null}" TimeoutMS="{x:Null}" Bcc="[send_mail_bcc]" Body="[send_mail_body]" Cc="[send_mail_cc]" DisplayName="Send SMTP Mail Message" Email="[smtp_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="False" MailMessage="[send_forward_mailmessage]" Name="[smtp_sendername]" Password="[smtp_password]" Port="[smtp_port]" SecureConnection="Auto" Server="[smtp_server]" Subject="[send_mail_subject]" To="[send_mail_to]">
+                    <ui:SendMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8" />
+                    </ui:SendMail.Files>
+                  </ui:SendMail>
+                </If.Then>
+                <If.Else>
+                  <ui:SendMail From="{x:Null}" TimeoutMS="{x:Null}" Bcc="[send_mail_bcc]" Body="[send_mail_body]" Cc="[send_mail_cc]" DisplayName="Send SMTP Mail Message" Email="[smtp_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" MailMessage="[send_forward_mailmessage]" Name="[smtp_sendername]" Password="[smtp_password]" Port="[smtp_port]" SecureConnection="Auto" Server="[smtp_server]" Subject="[send_mail_subject]" To="[send_mail_to]">
+                    <ui:SendMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8">
+                        <InArgument x:TypeArguments="x:String">[send_mail_attachment1]</InArgument>
+                      </scg:List>
+                    </ui:SendMail.Files>
+                  </ui:SendMail>
+                </If.Else>
+              </If>
+            </Sequence>
+          </If.Else>
+        </If>
+        <Sequence DisplayName="发送成功" sap2010:WorkflowViewState.IdRef="Sequence_9">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_24">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[error_message]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">["无错误。"+vbCrLf+"使用outlook："+use_outlook.ToString+vbCrLf+"添加系统发送flag："+(not auto_flag).ToString+vbCrLf+"邮件内容预览："+vbCrLf+"--------------------"+vbCrLf+"To："+send_mail_to+vbCrLf+"Cc："+send_mail_cc+vbCrLf+"Bcc："+send_mail_bcc+vbCrLf+"主题："+send_mail_subject+vbCrLf+"正文："+send_mail_body+vbCrLf+"附件1："+send_mail_attachment1+vbCrLf+"附件2："+send_mail_attachment2+vbCrLf+"附件3："+send_mail_attachment3+vbCrLf+"附件4："+send_mail_attachment4+vbCrLf+"附件5："+send_mail_attachment5+vbCrLf+"--------------------"]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_25">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[result_succeed]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </Sequence>
+    </TryCatch.Try>
+    <TryCatch.Catches>
+      <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+        <ActivityAction x:TypeArguments="s:Exception">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="发送失败" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[result_succeed]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[error_message]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["错误代码："+exception.Message+vbCrLf+"使用outlook："+use_outlook.ToString+vbCrLf+"添加系统发送flag："+(not auto_flag).ToString+vbCrLf+"邮件内容预览："+vbCrLf+"--------------------"+vbCrLf+"To："+send_mail_to+vbCrLf+"Cc："+send_mail_cc+vbCrLf+"Bcc："+send_mail_bcc+vbCrLf+"主题："+send_mail_subject+vbCrLf+"正文："+send_mail_body+vbCrLf+"附件1："+send_mail_attachment1+vbCrLf+"附件2："+send_mail_attachment2+vbCrLf+"附件3："+send_mail_attachment3+vbCrLf+"附件4："+send_mail_attachment4+vbCrLf+"附件5："+send_mail_attachment5+vbCrLf+"--------------------"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Delay Duration="00:00:02" sap2010:WorkflowViewState.IdRef="Delay_2" />
+            <ui:SendMail From="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Bcc="[send_mail_bcc]" Body="[error_message]" Cc="[send_mail_cc]" DisplayName="Send SMTP Mail Message" Email="[smtp_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Name="[smtp_sendername]" Password="[smtp_password]" Port="[smtp_port]" SecureConnection="Auto" Server="[smtp_server]" Subject="【RPA】发送邮件出错" To="pzy@yaskawa.com.cn; huangxiaohan@yaskawa.com.cn">
+              <ui:SendMail.Files>
+                <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8" />
+              </ui:SendMail.Files>
+            </ui:SendMail>
+          </Sequence>
+        </ActivityAction>
+      </Catch>
+    </TryCatch.Catches>
+    <sads:DebugSymbol.Symbol>dyVEOlxSUEFcMDAwLuaooeWdl1xTZW5kX01haWxcTWFpbi54YW1segFQAVYBAmAD2gIOAgEBZge2AhICASC+AgvVAhYCAQJnCagBFAMBmgGpAQm+AQ4DAY4BvwEJ8AEZAwGNAfEBCfEBUAMBiwHyAQmjAg4CASqkAgm1AhQCASG/Ag3GAhYCARzHAg3OAhYCARjPAg3PAlQCARbQAg3UAhsCAQNoC3MQAwG1AXQLpwEWAwGbAakBF6kBJAMBjwGrAQ2yARYDAZUBtQENvAEWAwGRAfEBGfEBIwMBjAHyARfyASYCASv0AQ2LAhgCAWCOAg2hAhgCAS2lAgusAhQCASatAgu0AhQCASLEAjnEAj4CAR/BAjrBAkoCAR3MAjjMArYEAgEbyQI5yQJIAgEZzwIdzwInAgEX0AKzA9AC5AMCARXQAlrQAmsCARPQAoYB0AKWAQIBEdACcdACggECAQ/QAqID0AKvAwIBDtACwgHQAtIBAgEM0ALdAtAC6gICAQrQAooD0AKZAwIBCNACxgLQAtcCAgEG0AKpAtACvAICAQRoGWhXAwG2AWoPcRgDAbcBdQ2KARIDAaoBiwENkgEWAwGmAZMBDZoBFgMBogGbAQ2mARIDAZwBsAE4sAFIAwGYAa0BOa0BSQMBlgG6ATi6Af4BAwGUAbcBObcBSQMBkgH1AQ+KAhQCAWGPAg+gAhQCAS6qAjaqAqEEAgEppwI3pwJGAgEnsgI3sgI7AgElrwI4rwJIAgEjbzpvTAMBugFsO2xMAwG4AXUbdY0BAwGrAXcRiAEcAwGsAZABOJABSgMBqQGNATmNAUYDAacBmAE3mAE5AwGlAZUBOJUBQwMBowGbARubAVkDAZ0BnQERpAEaAwGeAfUBHfUBQQIBYvcBE/sBKAIBfP4BE4gCKAIBY48CHY8CQQIBL5ECE5UCIQIBSZgCE54CIQIBMHgTfxwDAbEBgAEThwEcAwGtAaIBPKIBPwMBoQGfAT2fAU4DAZ8B9wHjAvcB8wIDAYkB9wFE9wFXAwGHAfcBXPcBbQMBhQH3AYkB9wGZAQMBgwH3AXP3AYUBAwGBAfcBygL3Ad8CAgF/9wGlAvcBwQICAX2CAkCCAlcCAXr+AeMC/gHzAgIBeP4BRP4BVwIBdoECQIECVwIBdP4BXP4BbQIBcv4BiQH+AZkBAgFwhQJAhQJXAgFu/gFz/gGFAQIBbP4BygL+Ad8CAgFqhAJAhAJXAgFogwJAgwJXAgFm/gGlAv4BwQICAWSRAtQDkQLkAwIBXpECSZECWgIBXJECdpEChgECAVqRAmCRAnICAViRArsDkQLQAwIBVpECsgGRAsIBAgFUkQL2ApECgwMCAVKRAqMDkQKyAwIBUJEC3wKRAvACAgFOkQKgApECvAICAUyRAsICkQLVAgIBSpgC1AOYAuQDAgFHmwJAmwJXAgFFmAJJmAJaAgFDmAJ2mAKGAQIBQZgCYJgCcgIBP5gCuwOYAtADAgE9mAKyAZgCwgECATuYAvYCmAKDAwIBOZgCowOYArIDAgE3mALfApgC8AICATWYAqACmAK8AgIBM5gCwgKYAtUCAgExfT59UAMBtAF6P3pNAwGyAYUBPoUBRgMBsAGCAT+CAU4DAa4B</sads:DebugSymbol.Symbol>
+  </TryCatch>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="486,206" />
+      <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_21" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="262,284">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_6" sap:VirtualizedContainerService.HintSize="464,430" />
+      <sap2010:ViewStateData Id="Assign_22" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Assign_23" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Assign_26" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,206" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="486,1000">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="900,1370">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_28" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_27" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_7" sap:VirtualizedContainerService.HintSize="900,206" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="262,584">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="284,708">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="900,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="900,22" />
+      <sap2010:ViewStateData Id="SendOutlookMail_2" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="SendOutlookMail_1" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="653,290" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendMail_3" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="SendMail_1" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="653,290" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="675,414">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="900,560" />
+      <sap2010:ViewStateData Id="Assign_24" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_25" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="900,284">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="922,2816">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="SendMail_2" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="404,20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,282" />
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="458,362" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

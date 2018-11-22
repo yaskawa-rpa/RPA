@@ -1,0 +1,14 @@
+{
+  "name": "SAP_Web_Login",
+  "description": "网页版SAP登录模块",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6535.19652",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

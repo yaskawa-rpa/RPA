@@ -1,0 +1,30 @@
+{
+  "name": "GM-004.采购订单残核对",
+  "description": "采购订单残核对（VS SY工厂）",
+  "main": "Main.xaml",
+  "dependencies": {
+    "Microsoft.Activities": "1.0.1.0",
+    "Microsoft.Activities.Extensions": "2.0.6.9",
+    "Twilio.Workflow.Activities": "1.0.0.0",
+    "UiPath.Cognitive.Activities": "1.0.6479.13212",
+    "UiPath.Core.Activities": "17.1.6435.21841",
+    "UiPath.Credentials.Activities": "1.1.6479.13204",
+    "UiPath.Database.Activities": "1.0.6479.13209",
+    "UiPath.Excel.Activities": "2.0.6526.16321",
+    "UiPath.Framework.Activities": "1.0.5905.30080",
+    "UiPath.FTP.Activities": "1.0.6479.13206",
+    "UiPath.Mail.Activities": "1.1.6562.21018",
+    "UiPath.PDF.Activities": "1.0.6479.13204",
+    "UiPath.Terminal.Activities": "1.1.6464.20815",
+    "UiPath.WebAPI.Activities": "1.1.6479.13209",
+    "UiPath.Word.Activities": "1.1.6479.13205"
+  },
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6682.16264",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

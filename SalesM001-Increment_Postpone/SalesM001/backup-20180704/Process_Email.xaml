@@ -1,0 +1,1536 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Process_email"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:snm="clr-namespace:System.Net.Mail;assembly=System"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Body" Type="InArgument(x:String)" />
+    <x:Property Name="attachedFiles" Type="InArgument(snm:AttachmentCollection)" />
+    <x:Property Name="subject" Type="InArgument(x:String)" />
+    <x:Property Name="mailMessage" Type="InArgument(snm:MailMessage)" />
+    <x:Property Name="mail_account" Type="InArgument(x:String)" />
+    <x:Property Name="mail_account_pwd" Type="InArgument(x:String)" />
+    <x:Property Name="Work_Mode" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Process_email_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Windows.Shapes</x:String>
+      <x:String>System.Windows.Controls</x:String>
+      <x:String>System.Windows.Documents</x:String>
+      <x:String>System.Windows.Shell</x:String>
+      <x:String>System.Windows.Navigation</x:String>
+      <x:String>System.Windows.Data</x:String>
+      <x:String>System.Windows</x:String>
+      <x:String>System.Windows.Controls.Primitives</x:String>
+      <x:String>System.Windows.Media.Animation</x:String>
+      <x:String>System.Windows.Input</x:String>
+      <x:String>System.Windows.Media</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Windows.Automation</x:String>
+      <x:String>System.Windows.Media.TextFormatting</x:String>
+      <x:String>System.Windows.Ink</x:String>
+      <x:String>System.Windows.Media.Effects</x:String>
+      <x:String>System.Windows.Media.Imaging</x:String>
+      <x:String>System.Windows.Media.Media3D</x:String>
+      <x:String>System.Windows.Forms.Integration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities.Debugger.Symbol</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Management.Automation</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Activities</x:String>
+      <x:String>UiPath.Library</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>Caliburn.Micro</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>UiPath.Excel</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>WindowsFormsIntegration</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Management.Automation</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Library</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Caliburn.Micro.Platform</AssemblyReference>
+      <AssemblyReference>Caliburn.Micro</AssemblyReference>
+      <AssemblyReference>Caliburn.Micro.Platform.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="errorMessage" />
+      <Variable x:TypeArguments="x:String" Name="newReply" />
+      <Variable x:TypeArguments="x:String" Default="&lt;BR&gt;&lt;BR&gt;此邮件由系统自动发送，请勿回复此邮件，如有问题请联系相关人员。&lt;BR&gt;This email is sent by system. Please DO NOT reply this email. If you have any questions, please contact with whom concerned.&lt;BR&gt;" Name="endingMail" />
+      <Variable x:TypeArguments="x:String" Name="tmpSavePath" />
+      <Variable x:TypeArguments="x:String" Default="增量延续模板" Name="Const_Sheet_Name" />
+      <Variable x:TypeArguments="x:String" Default="20180319" Name="Const_VER_NO" />
+      <Variable x:TypeArguments="x:String" Name="strVerNo" />
+      <Variable x:TypeArguments="x:String" Name="strDealerName" />
+      <Variable x:TypeArguments="x:String" Name="strApplyDate" />
+      <Variable x:TypeArguments="x:String" Name="strSAPNo" />
+      <Variable x:TypeArguments="x:String" Name="strSFNo" />
+      <Variable x:TypeArguments="x:String" Name="strEndUserName" />
+      <Variable x:TypeArguments="x:String" Name="strApplyType" />
+      <Variable x:TypeArguments="x:String" Name="strApplyEndDate" />
+      <Variable x:TypeArguments="x:String" Name="strApplyReason" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtNewData" />
+      <Variable x:TypeArguments="sd:DataRow" Name="drRow" />
+      <Variable x:TypeArguments="x:String" Name="tmpDatetime" />
+      <Variable x:TypeArguments="x:String" Default="D:\temp\WFCSV\import\SalesM001" Name="Const_CSV_PATH" />
+      <Variable x:TypeArguments="x:String" Default="D:\temp\Work\SalesM001\" Name="Const_Work_PATH" />
+      <Variable x:TypeArguments="x:String" Name="strSubjectTemp" />
+      <Variable x:TypeArguments="x:String" Name="strFromTemp" />
+      <Variable x:TypeArguments="x:String" Name="strCCTemp" />
+      <Variable x:TypeArguments="x:String" Name="strBodyTemp" />
+      <Variable x:TypeArguments="x:String" Name="strMailFileName" />
+      <Variable x:TypeArguments="x:Int32" Name="intCounter" />
+      <Variable x:TypeArguments="x:String" Default="Z:\WFCSV\import\SalesM001" Name="Const_CSV_PATH_bak" />
+    </Sequence.Variables>
+    <ui:Comment sap2010:WorkflowViewState.IdRef="Comment_2" Text="// Process email.&#xA;The Body of the email is passed as an argument&#xA;" />
+    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;[&quot; &amp; subject &amp; &quot;]'s mail process started.&quot;]" />
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_38">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">
+          <Literal x:TypeArguments="x:String" Value="" />
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <If Condition="[Work_Mode = true]" sap2010:WorkflowViewState.IdRef="If_60">
+      <If.Then>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_79">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[Const_CSV_PATH]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">\\192.168.19.18\temp\WFCSV\import\SalesM001</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Then>
+      <If.Else>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_80">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[Const_CSV_PATH]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">D:\temp\WFCSV\import\SalesM001</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <Sequence DisplayName="Attached files check logic" sap2010:WorkflowViewState.IdRef="Sequence_13">
+      <If Condition="[attachedFiles is nothing or attachedFiles.Count=0]" sap2010:WorkflowViewState.IdRef="If_3">
+        <If.Then>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_43">
+            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_16" Text="No attached file." />
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">--邮件中没有附件，请添加规定XLSX格式的Excel附件。&lt;BR&gt;</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_67">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[newReply]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的增量/延期申请我们已经收到，但是发现内容有以下问题，请确认和修改以后重新申请，谢谢！&lt;BR&gt;&lt;BR&gt;" &amp; errorMessage &amp; "&lt;BR&gt;安川电机中国&lt;BR&gt;"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:SendMail Bcc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[newReply+&quot;&lt;BR&gt;------------------------------------------------------------------&lt;BR&gt;&quot;+&quot;发件人: &quot;+ mailMessage.From.Address+&quot;&lt;BR&gt;&quot;+&quot;发送时间: &quot;+mailMessage.Headers.Get(&quot;date&quot;)+&quot;&lt;BR&gt;&quot;+&quot;收件人: &quot;+string.Join(&quot;,&quot;,mailMessage.To) +&quot;&lt;BR&gt;&quot;+&quot;抄送: &quot;+string.Join(&quot;,&quot;,mailMessage.CC)+&quot;&lt;BR&gt;&quot;+&quot;主题: &quot;+mailMessage.Subject+ &quot;&lt;BR&gt;&quot;+ mailMessage.Body+ &quot;&lt;BR&gt;&quot;]" Cc="[string.Join(&quot;;&quot;,mailMessage.CC)]" DisplayName="Send SMTP Mail Message" Email="[mail_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_6" IsBodyHtml="True" Password="[mail_account_pwd]" Port="25" SecureConnection="Auto" Server="smtp.mxhichina.com" Subject="[&quot;自动回复：&quot; &amp; mailMessage.Subject]" To="[mailMessage.From.Address]">
+              <ui:SendMail.Files>
+                <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+              </ui:SendMail.Files>
+            </ui:SendMail>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_14">
+            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="[&quot;attached file name=&quot; &amp; attachedFiles(0).Name]" />
+            <If Condition="[right(attachedFiles(0).name,4).ToUpper&lt;&gt;&quot;XLSX&quot;]" sap2010:WorkflowViewState.IdRef="If_4">
+              <If.Then>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_44">
+                  <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_17" Text="Attached file is not xlsx format." />
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件格式有误，请添加规定XLSX格式的Excel附件。&lt;BR&gt;"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_68">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[newReply]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的增量/延期申请[特价申请号：" &amp; strSAPNo &amp; "]我们已经收到，但是发现内容有以下问题，请确认和修改以后重新申请，谢谢！&lt;BR&gt;&lt;BR&gt;" &amp; errorMessage &amp; "&lt;BR&gt;安川电机中国&lt;BR&gt;"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:SendMail Bcc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[newReply+&quot;&lt;BR&gt;------------------------------------------------------------------&lt;BR&gt;&quot;+&quot;发件人: &quot;+ mailMessage.From.Address+&quot;&lt;BR&gt;&quot;+&quot;发送时间: &quot;+mailMessage.Headers.Get(&quot;date&quot;)+&quot;&lt;BR&gt;&quot;+&quot;收件人: &quot;+string.Join(&quot;,&quot;,mailMessage.To) +&quot;&lt;BR&gt;&quot;+&quot;抄送: &quot;+string.Join(&quot;,&quot;,mailMessage.CC)+&quot;&lt;BR&gt;&quot;+&quot;主题: &quot;+mailMessage.Subject+ &quot;&lt;BR&gt;&quot;+ mailMessage.Body+ &quot;&lt;BR&gt;&quot;]" Cc="[string.Join(&quot;;&quot;,mailMessage.CC)]" DisplayName="Send SMTP Mail Message" Email="[mail_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_7" IsBodyHtml="True" Password="[mail_account_pwd]" Port="25" SecureConnection="Auto" Server="smtp.mxhichina.com" Subject="[&quot;自动回复：&quot; &amp; mailMessage.Subject]" To="[mailMessage.From.Address]">
+                    <ui:SendMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                    </ui:SendMail.Files>
+                  </ui:SendMail>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_28">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="ui:WorkbookApplication" Name="tmpWorkbook" />
+                  </Sequence.Variables>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_42">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[tmpDatetime]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[format(now,"yyyyMMddHHmmss")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_43">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[tmpSavePath]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[Const_Work_PATH &amp; tmpDatetime]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:SaveMailAttachments Attachments="{x:Null}" DisplayName="Save Attachments" FolderPath="[tmpSavePath]" sap2010:WorkflowViewState.IdRef="SaveMailAttachments_2" Message="[mailMessage]" />
+                  <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_43" Text="[&quot;=====&quot; + tmpSavePath &amp; &quot;\&quot; &amp; attachedFiles(0).Name]" />
+                  <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel application scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_5" Visible="False" Workbook="[tmpWorkbook]" WorkbookPath="[tmpSavePath &amp; &quot;\&quot; &amp; attachedFiles(0).Name]">
+                    <ui:ExcelApplicationScope.Body>
+                      <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Read Excel Data" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="sd:DataTable" Name="dtDetailData" />
+                          </Sequence.Variables>
+                          <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_18" Text="[&quot;filepath=&quot; &amp; tmpSavePath &amp; &quot;\&quot; &amp; attachedFiles(0).Name]" />
+                          <ui:ExcelReadCell Cell="T2" DisplayName="Read Cell-Version no." sap2010:WorkflowViewState.IdRef="ExcelReadCell_11" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strVerNo]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_36" Text="[&quot;strVerNo=&quot; &amp; strVerNo]" />
+                          <ui:ExcelReadCell Cell="H2" DisplayName="Read Cell-代理店名称" sap2010:WorkflowViewState.IdRef="ExcelReadCell_12" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strDealerName]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="M2" DisplayName="Read Cell-申请日期" sap2010:WorkflowViewState.IdRef="ExcelReadCell_13" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strApplyDate]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="H3" DisplayName="Read Cell-特价报价单号" sap2010:WorkflowViewState.IdRef="ExcelReadCell_14" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strSAPNo]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="M3" DisplayName="Read Cell-特价申请号(SF)" sap2010:WorkflowViewState.IdRef="ExcelReadCell_15" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strSFNo]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="Q3" DisplayName="Read Cell-最终用户名称" sap2010:WorkflowViewState.IdRef="ExcelReadCell_16" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strEndUserName]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="H4" DisplayName="Read Cell-单据类型" sap2010:WorkflowViewState.IdRef="ExcelReadCell_17" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strApplyType]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="M4" DisplayName="Read Cell-申请延续终止日" sap2010:WorkflowViewState.IdRef="ExcelReadCell_18" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strApplyEndDate]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadCell Cell="H5" DisplayName="Read Cell-特价增量、延续理由" sap2010:WorkflowViewState.IdRef="ExcelReadCell_19" SheetName="[Const_Sheet_Name]">
+                            <ui:ExcelReadCell.Result>
+                              <OutArgument x:TypeArguments="x:String">[strApplyReason]</OutArgument>
+                            </ui:ExcelReadCell.Result>
+                          </ui:ExcelReadCell>
+                          <ui:ExcelReadRange AddHeaders="False" DataTable="[dtDetailData]" DisplayName="Read Range(read detail data)" sap2010:WorkflowViewState.IdRef="ExcelReadRange_2" Range="A10:R110" SheetName="[Const_Sheet_Name]" />
+                          <Assign sap2010:WorkflowViewState.IdRef="Assign_44">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[strMailFileName]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[Const_WORK_PATH &amp; "mail\" &amp; tmpDatetime &amp; strSAPNo &amp; strSFNo &amp; ".xlsx"]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_19" Text="[&quot;mailfilename=&quot; &amp; strMailFileName]" />
+                          <Sequence DisplayName="CHECK Logic" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="strTempDate" />
+                              <Variable x:TypeArguments="s:DateTime" Name="dateTemp" />
+                              <Variable x:TypeArguments="x:Int32" Name="intResult" />
+                            </Sequence.Variables>
+                            <If Condition="[strVerNo&lt;&gt;Const_VER_NO]" DisplayName="If(Version check)" sap2010:WorkflowViewState.IdRef="If_28">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_45">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[版本]不是最新的，请添加最新的格式文件。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_26" Text="[&quot;strVerNo=&quot; &amp; strVerNo]" />
+                            <If Condition="[strDealerName=&quot;&quot; or strDealerName is nothing]" DisplayName="If(Dealer name)" sap2010:WorkflowViewState.IdRef="If_29">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_46">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[代理店名称]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_27" Text="[&quot;strDealerName=&quot; &amp; strDealerName]" />
+                            <If Condition="[strapplydate=&quot;&quot; or strapplydate is nothing]" DisplayName="If(申请日期)" sap2010:WorkflowViewState.IdRef="If_30">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_47">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[申请日期]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                              <If.Else>
+                                <If Condition="[DateTime.TryParseExact(strapplydate, &quot;yyyyMMdd&quot;, CultureInfo.InvariantCulture, DateTimeStyles.None, Nothing)=false]" DisplayName="If format is not yyyyMMdd" sap2010:WorkflowViewState.IdRef="If_56">
+                                  <If.Then>
+                                    <Assign sap2010:WorkflowViewState.IdRef="Assign_75">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[申请日期]格式不正确，请输入YYYYMMDD格式的日期。&lt;BR&gt;"]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Then>
+                                </If>
+                              </If.Else>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_28" Text="[&quot;strapplydate=&quot; &amp; strapplydate]" />
+                            <If Condition="[strSAPNo=&quot;&quot; or strSAPNo is nothing]" DisplayName="If(特价报价单号)" sap2010:WorkflowViewState.IdRef="If_31">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_48">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[特价报价单号]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_29" Text="[&quot;strSAPNo=&quot; &amp; strSAPNo]" />
+                            <If Condition="[strSFNo=&quot;&quot; or strSFNo is nothing]" DisplayName="If(特价申请号)" sap2010:WorkflowViewState.IdRef="If_32">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_49">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[特价申请号]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_30" Text="[&quot;strSFNo=&quot; &amp; strSFNo]" />
+                            <If Condition="[strEndUserName=&quot;&quot; or strEndUserName is nothing]" DisplayName="If(最终用户名称)" sap2010:WorkflowViewState.IdRef="If_33">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_50">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[最终用户名称]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_31" Text="[&quot;strEndUserName=&quot; &amp; strEndUserName]" />
+                            <If Condition="[strApplyType=&quot;&quot; or strApplyType is nothing]" DisplayName="If(单据类型)" sap2010:WorkflowViewState.IdRef="If_34">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_51">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[单据类型]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_45">
+                                  <If Condition="[strApplyType.Contains(&quot;延续&quot;) and strApplyEndDate=&quot;&quot;]" DisplayName="If(单据选择了特价延续时，【申请延续终止日】必须填写。)" sap2010:WorkflowViewState.IdRef="If_51">
+                                    <If.Then>
+                                      <Assign sap2010:WorkflowViewState.IdRef="Assign_69">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[单据类型]选择了[特价延续]时，[申请延续终止日]必须填写。&lt;BR&gt;"]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </If.Then>
+                                  </If>
+                                  <If Condition="[strApplyType.Contains(&quot;延续&quot;)=false and strApplyEndDate&lt;&gt;&quot;&quot;]" DisplayName="If(单据没有选择特价延续时，【申请延续终止日】不能填写。)" sap2010:WorkflowViewState.IdRef="If_52">
+                                    <If.Then>
+                                      <Assign sap2010:WorkflowViewState.IdRef="Assign_70">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[单据类型]没有选择[特价延续]时，[申请延续终止日]不能填写。&lt;BR&gt;"]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </If.Then>
+                                  </If>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_32" Text="[&quot;strApplyType=&quot; &amp; strApplyType]" />
+                            <If Condition="[strApplyReason=&quot;&quot; or strApplyReason is nothing]" DisplayName="If(特价增量、延续理由)" sap2010:WorkflowViewState.IdRef="If_35">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_52">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[特价增量/延续理由]没有填写。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_33" Text="[&quot;strApplyReason=&quot; &amp; strApplyReason]" />
+                            <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                              <TryCatch.Try>
+                                <ui:ExcelReadCell Cell="L10" DisplayName="Read Cell-报价单有效终止日" sap2010:WorkflowViewState.IdRef="ExcelReadCell_20" SheetName="[Const_Sheet_Name]">
+                                  <ui:ExcelReadCell.Result>
+                                    <OutArgument x:TypeArguments="x:String">[strTempDate]</OutArgument>
+                                  </ui:ExcelReadCell.Result>
+                                </ui:ExcelReadCell>
+                              </TryCatch.Try>
+                              <TryCatch.Catches>
+                                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                                  <ActivityAction x:TypeArguments="s:Exception">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                    </ActivityAction.Argument>
+                                    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_38" Text="[exception.Message]" />
+                                  </ActivityAction>
+                                </Catch>
+                              </TryCatch.Catches>
+                            </TryCatch>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_34" Text="[&quot;strTempDate=&quot; &amp; strTempDate]" />
+                            <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                              <TryCatch.Try>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_55">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="s:DateTime">[dateTemp]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(strTempDate,"yyyyMMdd",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </TryCatch.Try>
+                              <TryCatch.Catches>
+                                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                                  <ActivityAction x:TypeArguments="s:Exception">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                    </ActivityAction.Argument>
+                                    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_37" Text="[exception.Message]" />
+                                  </ActivityAction>
+                                </Catch>
+                              </TryCatch.Catches>
+                            </TryCatch>
+                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_35" Text="[&quot;dateTemp=&quot; &amp; dateTemp.ToString]" />
+                            <p:AddToDate DisplayName="Add to date(1 month)" sap2010:WorkflowViewState.IdRef="AddToDate_3" Input="[dateTemp]" Result="[dateTemp]" Months="1" />
+                            <p:CompareDate DisplayName="Compare date" sap2010:WorkflowViewState.IdRef="CompareDate_3" Left="[dateTemp]" Result="[intResult]" Right="[DateTime.Parse(now.ToShortDateString)]" />
+                            <If Condition="[intResult&lt;0]" DisplayName="If(【报价单有效终止日】&lt;系统时间一个月时，报错不能提交增量/延期申请)" sap2010:WorkflowViewState.IdRef="If_38">
+                              <If.Then>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_56">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[报价单有效日]已经过期超过一个月，不能提交增量/延期申请，请重新提交新的特价申请。&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                            </If>
+                            <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                              <TryCatch.Try>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_57">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="s:DateTime">[dateTemp]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(strTempDate,"yyyyMMdd",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </TryCatch.Try>
+                              <TryCatch.Catches>
+                                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                                  <ActivityAction x:TypeArguments="s:Exception">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                    </ActivityAction.Argument>
+                                    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_39" Text="[exception.Message]" />
+                                  </ActivityAction>
+                                </Catch>
+                              </TryCatch.Catches>
+                            </TryCatch>
+                            <If Condition="[strApplyEndDate&lt;&gt;&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_54">
+                              <If.Then>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_51">
+                                  <If Condition="[DateTime.TryParseExact(strApplyEndDate, &quot;yyyyMMdd&quot;, CultureInfo.InvariantCulture, DateTimeStyles.None, Nothing)=false]" DisplayName="If format is not yyyyMMdd" sap2010:WorkflowViewState.IdRef="If_59">
+                                    <If.Then>
+                                      <Assign sap2010:WorkflowViewState.IdRef="Assign_78">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[申请延续终止日]格式不正确，请输入YYYYMMDD格式的日期。&lt;BR&gt;"]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </If.Then>
+                                    <If.Else>
+                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_48">
+                                        <p:AddToDate DisplayName="Add to date(add 6 month)" sap2010:WorkflowViewState.IdRef="AddToDate_4" Input="[dateTemp]" Result="[dateTemp]" Months="6" />
+                                        <p:CompareDate DisplayName="Compare date" sap2010:WorkflowViewState.IdRef="CompareDate_4" Left="[dateTemp]" Result="[intResult]" Right="[DateTime.ParseExact(strApplyEndDate,&quot;yyyyMMdd&quot;,System.Globalization.CultureInfo.InvariantCulture)]" />
+                                        <If Condition="[intResult&lt;0]" DisplayName="If(【申请延续终止日】大于[报价单有效终止日]6个月的时候报错)" sap2010:WorkflowViewState.IdRef="If_39">
+                                          <If.Then>
+                                            <Assign sap2010:WorkflowViewState.IdRef="Assign_58">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件的[申请延续终止日]不能超过[报价单有效终止日]半年。&lt;BR&gt;"]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                          </If.Then>
+                                        </If>
+                                      </Sequence>
+                                    </If.Else>
+                                  </If>
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                          </Sequence>
+                          <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_22" Text="check logic ended." />
+                          <If Condition="[strApplyType=&quot;&quot; or strSAPNo=&quot;&quot; or strSFNo=&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_53">
+                            <If.Then>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_46">
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_71">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[newReply]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的增量/延期申请[特价申请号：" &amp; strSAPNo &amp; "]我们已经收到，但是发现内容有以下问题，请确认和修改以后重新申请，谢谢！&lt;BR&gt;&lt;BR&gt;" &amp; errorMessage &amp; "&lt;BR&gt;安川电机中国&lt;BR&gt;"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:SendMail Bcc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[newReply+&quot;&lt;BR&gt;------------------------------------------------------------------&lt;BR&gt;&quot;+&quot;发件人: &quot;+ mailMessage.From.Address+&quot;&lt;BR&gt;&quot;+&quot;发送时间: &quot;+mailMessage.Headers.Get(&quot;date&quot;)+&quot;&lt;BR&gt;&quot;+&quot;收件人: &quot;+string.Join(&quot;,&quot;,mailMessage.To) +&quot;&lt;BR&gt;&quot;+&quot;抄送: &quot;+string.Join(&quot;,&quot;,mailMessage.CC)+&quot;&lt;BR&gt;&quot;+&quot;主题: &quot;+mailMessage.Subject+ &quot;&lt;BR&gt;&quot;+ mailMessage.Body+ &quot;&lt;BR&gt;&quot;]" Cc="[string.Join(&quot;;&quot;,mailMessage.CC)]" DisplayName="Send SMTP Mail Message" Email="[mail_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_8" IsBodyHtml="True" Password="[mail_account_pwd]" Port="25" SecureConnection="Auto" Server="smtp.mxhichina.com" Subject="[&quot;自动回复：&quot; &amp; mailMessage.Subject]" To="[mailMessage.From.Address]">
+                                  <ui:SendMail.Files>
+                                    <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                                  </ui:SendMail.Files>
+                                </ui:SendMail>
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_47">
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_59">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Int32">[intCounter]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each(Check Logic)" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[dtDetailData.Rows]">
+                                  <ui:ForEach.Body>
+                                    <ActivityAction x:TypeArguments="sd:DataRow">
+                                      <ActivityAction.Argument>
+                                        <DelegateInArgument x:TypeArguments="sd:DataRow" Name="item" />
+                                      </ActivityAction.Argument>
+                                      <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                                        <If Condition="[item(0).ToString=&quot;0&quot; or item(0).ToString=&quot;&quot; or item(0).ToString=&quot;合计&quot;]" sap2010:WorkflowViewState.IdRef="If_40">
+                                          <If.Then>
+                                            <ui:Break sap2010:WorkflowViewState.IdRef="Break_3" />
+                                          </If.Then>
+                                          <If.Else>
+                                            <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_13" Text="[item(0).ToString]" />
+                                          </If.Else>
+                                        </If>
+                                        <Sequence DisplayName="Detail Check" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                                          <If Condition="[strApplyType.Contains(&quot;增量&quot;)]" DisplayName="If(单据选择了特价增量时，增量和提货计划必须填写。)" sap2010:WorkflowViewState.IdRef="If_46">
+                                            <If.Then>
+                                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_32">
+                                                <If Condition="[item(13).ToString&lt;&gt;&quot;&quot; and item(13).ToString&lt;&gt;&quot;0&quot;]" DisplayName="If(增量&gt;0)" sap2010:WorkflowViewState.IdRef="If_44">
+                                                  <If.Then>
+                                                    <If Condition="[item(14).ToString=&quot;&quot; or item(14).ToString=&quot;0&quot; or item(15).ToString=&quot;&quot; or item(15).ToString=&quot;0&quot; or item(16).ToString=&quot;&quot; or item(16).ToString=&quot;0&quot;]" sap2010:WorkflowViewState.IdRef="If_42">
+                                                      <If.Then>
+                                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_60">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件明细的[项目]=" &amp; item(0).toString() &amp; "的[特价增量]和3个月[提货计划]没有同时填写。&lt;BR&gt;"]</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                      </If.Then>
+                                                      <If.Else>
+                                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_31">
+                                                          <Assign sap2010:WorkflowViewState.IdRef="Assign_61">
+                                                            <Assign.To>
+                                                              <OutArgument x:TypeArguments="x:Int32">[intCounter]</OutArgument>
+                                                            </Assign.To>
+                                                            <Assign.Value>
+                                                              <InArgument x:TypeArguments="x:Int32">[intCounter+1]</InArgument>
+                                                            </Assign.Value>
+                                                          </Assign>
+                                                          <If Condition="[cint(item(9).ToString)&lt;cint(item(14).ToString)+cint(item(15).ToString)+cint(item(16).ToString)]" DisplayName="If(当【可使用数量】&lt;三个月合计计划提货时，才可以填写增量，否则报错提醒)" sap2010:WorkflowViewState.IdRef="If_41">
+                                                            <If.Else>
+                                                              <Assign sap2010:WorkflowViewState.IdRef="Assign_62">
+                                                                <Assign.To>
+                                                                  <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                  <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件明细的[项目]=" &amp; item(0).toString() &amp; "的[可使用数量]必须小于3个月[提货计划]的合计。&lt;BR&gt;"]</InArgument>
+                                                                </Assign.Value>
+                                                              </Assign>
+                                                            </If.Else>
+                                                          </If>
+                                                        </Sequence>
+                                                      </If.Else>
+                                                    </If>
+                                                  </If.Then>
+                                                  <If.Else>
+                                                    <If Condition="[item(14).ToString&lt;&gt;&quot;&quot; or item(15).ToString&lt;&gt;&quot;&quot; or item(16).ToString&lt;&gt;&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_43">
+                                                      <If.Then>
+                                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_63">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-邮件附件明细的[项目]=" &amp; item(0).toString() &amp; "的[特价增量]没有填写，所以3个月[提货计划]也不能填写。&lt;BR&gt;"]</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                      </If.Then>
+                                                    </If>
+                                                  </If.Else>
+                                                </If>
+                                              </Sequence>
+                                            </If.Then>
+                                            <If.Else>
+                                              <If Condition="[item(13).ToString&lt;&gt;&quot;&quot; or item(14).ToString&lt;&gt;&quot;&quot; or item(15).ToString&lt;&gt;&quot;&quot; or item(16).ToString&lt;&gt;&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_45">
+                                                <If.Then>
+                                                  <Assign sap2010:WorkflowViewState.IdRef="Assign_64">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-[单据类型]没有包含增量，所以邮件附件明细的[项目]=" &amp; item(0).toString() &amp; "的[特价增量]和3个月[提货计划]不能填写。&lt;BR&gt;"]</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </If.Then>
+                                              </If>
+                                            </If.Else>
+                                          </If>
+                                        </Sequence>
+                                      </Sequence>
+                                    </ActivityAction>
+                                  </ui:ForEach.Body>
+                                </ui:ForEach>
+                                <If Condition="[strApplyType.Contains(&quot;增量&quot;) and intCounter=0]" sap2010:WorkflowViewState.IdRef="If_47">
+                                  <If.Then>
+                                    <Assign sap2010:WorkflowViewState.IdRef="Assign_65">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[errorMessage &amp; "-[单据类型]包含增量，所以邮件附件明细的至少一行需要填写[特价增量]和3个月[提货计划]。&lt;BR&gt;"]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Then>
+                                </If>
+                                <If Condition="[errorMessage=&quot;&quot;]" sap2010:WorkflowViewState.IdRef="If_49">
+                                  <If.Then>
+                                    <Sequence DisplayName="Data Process" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                                      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_20" Text="Data process started." />
+                                      <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each(add data to csv file)" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[dtDetailData.Rows]">
+                                        <ui:ForEach.Body>
+                                          <ActivityAction x:TypeArguments="sd:DataRow">
+                                            <ActivityAction.Argument>
+                                              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="item" />
+                                            </ActivityAction.Argument>
+                                            <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                                              <Sequence.Variables>
+                                                <Variable x:TypeArguments="x:String" Name="strCancel" />
+                                              </Sequence.Variables>
+                                              <If Condition="[item(0).ToString=&quot;0&quot; or item(0).ToString=&quot;&quot; or item(0).ToString=&quot;合计&quot;]" sap2010:WorkflowViewState.IdRef="If_48">
+                                                <If.Then>
+                                                  <ui:Break sap2010:WorkflowViewState.IdRef="Break_4" />
+                                                </If.Then>
+                                                <If.Else>
+                                                  <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_14" Text="[item(0).ToString]" />
+                                                </If.Else>
+                                              </If>
+                                              <If Condition="[item(5).ToString=&quot;Z1&quot;]" sap2010:WorkflowViewState.IdRef="If_55">
+                                                <If.Then>
+                                                  <Assign sap2010:WorkflowViewState.IdRef="Assign_73">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:String">[strCancel]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:String">×</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </If.Then>
+                                                <If.Else>
+                                                  <Assign sap2010:WorkflowViewState.IdRef="Assign_74">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:String">[strCancel]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:String">
+                                                        <Literal x:TypeArguments="x:String" Value="" />
+                                                      </InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </If.Else>
+                                              </If>
+                                              <ui:AppendLine DisplayName="Append line" Encoding="GBK" FileName="[Const_CSV_PATH &amp; &quot;\data.csv&quot;]" sap2010:WorkflowViewState.IdRef="AppendLine_3" Text="[chr(34)+strDealerName+chr(34) + &quot;,&quot; + chr(34)+strSAPNo+chr(34) + &quot;,&quot; + chr(34)+strSFNo+chr(34) + &quot;,&quot; + chr(34)+strApplyType+chr(34) + &quot;,&quot; + chr(34)+strEndUserName+chr(34) + &quot;,&quot; + chr(34)+strApplyReason+chr(34) + &quot;,&quot; + chr(34)+strApplyEndDate+chr(34) + &quot;,&quot; + chr(34)+item(10).ToString+chr(34) + &quot;,&quot; + chr(34)+item(11).ToString+chr(34) + &quot;,&quot; + chr(34)+item(0).ToString+chr(34) + &quot;,&quot; + chr(34)+item(6).ToString+chr(34) + &quot;,&quot; + chr(34)+item(7).ToString+chr(34) + &quot;,&quot; + chr(34)+item(8).ToString+chr(34) + &quot;,&quot; + chr(34)+item(9).ToString+chr(34) + &quot;,&quot; + chr(34)+item(13).ToString+chr(34) + &quot;,&quot; + chr(34)+item(14).ToString+chr(34) + &quot;,&quot; + chr(34)+item(15).ToString+chr(34) + &quot;,&quot; + chr(34)+item(16).ToString+chr(34) + &quot;,&quot; + chr(34)+item(17).ToString+chr(34) + &quot;,&quot; + chr(34)+tmpDatetime+chr(34)+ &quot;,&quot; + chr(34)+ strMailFileName + chr(34) + &quot;,&quot;  + chr(34) + strCancel +chr(34)]" />
+                                            </Sequence>
+                                          </ActivityAction>
+                                        </ui:ForEach.Body>
+                                      </ui:ForEach>
+                                      <Sequence DisplayName="file process" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                                        <ui:Comment sap2010:WorkflowViewState.IdRef="Comment_7" Text="// TODO:Remember to copy to the path before the release&#xA;192.168.19.18" />
+                                        <ui:CreateDirectory ContinueOnError="True" DisplayName="Create directory" sap2010:WorkflowViewState.IdRef="CreateDirectory_3" Path="[Const_CSV_PATH &amp; &quot;\files\&quot; &amp; tmpDatetime &amp; strSAPNo &amp; strSFNo &amp; &quot;\TMT1&quot;]" />
+                                        <ui:CopyFile ContinueOnError="{x:Null}" Destination="[Const_CSV_PATH &amp; &quot;\files\&quot; &amp; tmpDatetime &amp; strSAPNo &amp; strSFNo &amp; &quot;\TMT1\&quot; &amp; attachedFiles(0).Name]" DisplayName="Copy attached file to WF attached" sap2010:WorkflowViewState.IdRef="CopyFile_3" Overwrite="False" Path="[tmpSavePath &amp; &quot;\&quot; &amp; attachedFiles(0).Name]" />
+                                      </Sequence>
+                                    </Sequence>
+                                  </If.Then>
+                                </If>
+                                <Sequence DisplayName="create mail temporary file" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="ui:WorkbookApplication" Name="tmpWorkbook2" />
+                                  </Sequence.Variables>
+                                  <ui:Comment sap2010:WorkflowViewState.IdRef="Comment_8" Text="// Write mail context into temporary file." />
+                                  <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_21" Text="create mail temporary file started." />
+                                  <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel application scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4" Visible="False" Workbook="[tmpWorkbook2]" WorkbookPath="[strMailFileName]">
+                                    <ui:ExcelApplicationScope.Body>
+                                      <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                                          <ui:ExcelWriteCell Cell="A1" DisplayName="Write Cell(Subject)" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_9" SheetName="Sheet1" Text="[mailMessage.Subject]" />
+                                          <ui:ExcelWriteCell Cell="B1" DisplayName="Write Cell(From)" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_10" SheetName="Sheet1" Text="[mailMessage.From.Address]" />
+                                          <ui:ExcelWriteCell Cell="C1" DisplayName="Write Cell(CC)" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_11" SheetName="Sheet1" Text="[string.Join(&quot;;&quot;,mailMessage.CC)]" />
+                                          <ui:ExcelWriteCell Cell="D1" DisplayName="Write Cell(Body)" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_12" SheetName="Sheet1" Text="[&quot;&lt;BR&gt;------------------------------------------------------------------&lt;BR&gt;&quot;+&quot;发件人: &quot;+ mailMessage.From.Address+&quot;&lt;BR&gt;&quot;+&quot;发送时间: &quot;+mailMessage.Headers.Get(&quot;date&quot;)+&quot;&lt;BR&gt;&quot;+&quot;收件人: &quot;+string.Join(&quot;,&quot;,mailMessage.To) +&quot;&lt;BR&gt;&quot;+&quot;抄送: &quot;+string.Join(&quot;,&quot;,mailMessage.CC)+&quot;&lt;BR&gt;&quot;+&quot;主题: &quot;+mailMessage.Subject+ &quot;&lt;BR&gt;&quot;+ mailMessage.Body+ &quot;&lt;BR&gt;&quot;]" />
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </ui:ExcelApplicationScope.Body>
+                                  </ui:ExcelApplicationScope>
+                                  <ui:ExcelCloseWorkbook DisplayName="Close Workbook" sap2010:WorkflowViewState.IdRef="ExcelCloseWorkbook_2" Workbook="[tmpWorkbook2]" />
+                                </Sequence>
+                                <If Condition="[errorMessage&lt;&gt;&quot;&quot;]" DisplayName="If(send check error mail )" sap2010:WorkflowViewState.IdRef="If_50">
+                                  <If.Then>
+                                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_52">
+                                      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_42" Text="Send error mail startd." />
+                                      <Sequence DisplayName="Send error mail" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_66">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[newReply]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的增量/延期申请[特价申请号：" &amp; strSAPNo &amp; "]我们已经收到，但是发现内容有以下问题，请确认和修改以后重新申请，谢谢！&lt;BR&gt;&lt;BR&gt;" &amp; errorMessage &amp; "&lt;BR&gt;安川电机中国&lt;BR&gt;"]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="ReadMailContents.xaml">
+                                          <ui:InvokeWorkflowFile.Arguments>
+                                            <OutArgument x:TypeArguments="x:String" x:Key="strSubjectTemp">[strSubjectTemp]</OutArgument>
+                                            <OutArgument x:TypeArguments="x:String" x:Key="strFromTemp">[strFromTemp]</OutArgument>
+                                            <OutArgument x:TypeArguments="x:String" x:Key="strCCTemp">[strCCTemp]</OutArgument>
+                                            <OutArgument x:TypeArguments="x:String" x:Key="strBodyTemp">[strBodyTemp]</OutArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="strFilePath">[Const_WORK_PATH &amp; "\mail\" &amp; tmpDatetime &amp; strSAPNo &amp; strSFNo &amp; ".xlsx"]</InArgument>
+                                          </ui:InvokeWorkflowFile.Arguments>
+                                        </ui:InvokeWorkflowFile>
+                                        <ui:SendMail Bcc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[newReply+ strBodyTemp]" Cc="[strCCTemp]" DisplayName="Send SMTP Mail Message" Email="[mail_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_5" IsBodyHtml="True" Password="[mail_account_pwd]" Port="25" SecureConnection="Auto" Server="smtp.mxhichina.com" Subject="[&quot;自动回复：&quot; &amp; strSubjectTemp]" To="[strFromTemp]">
+                                          <ui:SendMail.Files>
+                                            <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                                          </ui:SendMail.Files>
+                                        </ui:SendMail>
+                                      </Sequence>
+                                    </Sequence>
+                                  </If.Then>
+                                  <If.Else>
+                                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_49">
+                                      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_15" Text="No error happened." />
+                                      <Assign sap2010:WorkflowViewState.IdRef="Assign_72">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[newReply]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的增量/延期申请[特价申请号：" &amp; strSAPNo &amp; "]我们已经收到，目前正在审批中，审批完成后会有邮件通知，谢谢！&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;安川电机中国&lt;BR&gt;"]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="ReadMailContents.xaml">
+                                        <ui:InvokeWorkflowFile.Arguments>
+                                          <OutArgument x:TypeArguments="x:String" x:Key="strSubjectTemp">[strSubjectTemp]</OutArgument>
+                                          <OutArgument x:TypeArguments="x:String" x:Key="strFromTemp">[strFromTemp]</OutArgument>
+                                          <OutArgument x:TypeArguments="x:String" x:Key="strCCTemp">[strCCTemp]</OutArgument>
+                                          <OutArgument x:TypeArguments="x:String" x:Key="strBodyTemp">[strBodyTemp]</OutArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="strFilePath">[Const_WORK_PATH &amp; "\mail\" &amp; tmpDatetime &amp; strSAPNo &amp; strSFNo &amp; ".xlsx"]</InArgument>
+                                        </ui:InvokeWorkflowFile.Arguments>
+                                      </ui:InvokeWorkflowFile>
+                                      <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_40" Text="[&quot;strFromTemp=&quot; &amp; strFromTemp]" />
+                                      <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+                                        <TryCatch.Try>
+                                          <ui:SendMail Bcc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[newReply +strBodyTemp]" Cc="[strCCTemp]" DisplayName="Send SMTP Mail Message" Email="[mail_account]" EnableSSL="True" sap2010:WorkflowViewState.IdRef="SendMail_9" IsBodyHtml="True" Password="[mail_account_pwd]" Port="25" SecureConnection="Auto" Server="smtp.mxhichina.com" Subject="[&quot;自动回复：&quot; &amp; strSubjectTemp]" To="[strFromTemp]">
+                                            <ui:SendMail.Files>
+                                              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                                            </ui:SendMail.Files>
+                                          </ui:SendMail>
+                                        </TryCatch.Try>
+                                        <TryCatch.Catches>
+                                          <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                                            <ActivityAction x:TypeArguments="s:Exception">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                              </ActivityAction.Argument>
+                                              <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_41" Text="[exception.Message &amp; exception.StackTrace]" />
+                                            </ActivityAction>
+                                          </Catch>
+                                        </TryCatch.Catches>
+                                      </TryCatch>
+                                    </Sequence>
+                                  </If.Else>
+                                </If>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ExcelApplicationScope.Body>
+                  </ui:ExcelApplicationScope>
+                  <ui:ExcelCloseWorkbook DisplayName="Close Workbook" sap2010:WorkflowViewState.IdRef="ExcelCloseWorkbook_1" Workbook="[tmpWorkbook]" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_12" Text="[&quot;[&quot; &amp; subject &amp; &quot;]'s mail process ended.&quot;]" />
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Comment_2" sap:VirtualizedContainerService.HintSize="464,75" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Assign_38" sap:VirtualizedContainerService.HintSize="505,60" />
+      <sap2010:ViewStateData Id="Assign_79" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_80" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_60" sap:VirtualizedContainerService.HintSize="505,206" />
+      <sap2010:ViewStateData Id="WriteLine_16" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_67" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="SendMail_6" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="Sequence_43" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_7" sap:VirtualizedContainerService.HintSize="697,60" />
+      <sap2010:ViewStateData Id="WriteLine_17" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_68" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="SendMail_7" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="Sequence_44" sap:VirtualizedContainerService.HintSize="336,568">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_42" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_43" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="SaveMailAttachments_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="WriteLine_43" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="WriteLine_18" sap:VirtualizedContainerService.HintSize="1206,60" />
+      <sap2010:ViewStateData Id="ExcelReadCell_11" sap:VirtualizedContainerService.HintSize="1206,59" />
+      <sap2010:ViewStateData Id="WriteLine_36" sap:VirtualizedContainerService.HintSize="1206,60" />
+      <sap2010:ViewStateData Id="ExcelReadCell_12" sap:VirtualizedContainerService.HintSize="1206,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_13" sap:VirtualizedContainerService.HintSize="1206,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_14" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_15" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_16" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_17" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_18" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_19" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="ExcelReadRange_2" sap:VirtualizedContainerService.HintSize="928,59" />
+      <sap2010:ViewStateData Id="Assign_44" sap:VirtualizedContainerService.HintSize="928,60" />
+      <sap2010:ViewStateData Id="WriteLine_19" sap:VirtualizedContainerService.HintSize="928,60" />
+      <sap2010:ViewStateData Id="Assign_45" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_28" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_26" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_46" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_29" sap:VirtualizedContainerService.HintSize="906,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_27" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_47" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_75" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_56" sap:VirtualizedContainerService.HintSize="464,205" />
+      <sap2010:ViewStateData Id="If_30" sap:VirtualizedContainerService.HintSize="906,350">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_28" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_48" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_31" sap:VirtualizedContainerService.HintSize="906,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_29" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_49" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_32" sap:VirtualizedContainerService.HintSize="906,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_30" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_50" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_33" sap:VirtualizedContainerService.HintSize="906,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_31" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_51" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_69" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_51" sap:VirtualizedContainerService.HintSize="464,206">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_70" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_52" sap:VirtualizedContainerService.HintSize="464,206">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_45" sap:VirtualizedContainerService.HintSize="486,576">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_34" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_32" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_52" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_35" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_33" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="ExcelReadCell_20" sap:VirtualizedContainerService.HintSize="314,59">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_38" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="404,20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_34" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="Assign_55" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="WriteLine_37" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="404,20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_35" sap:VirtualizedContainerService.HintSize="906,60" />
+      <sap2010:ViewStateData Id="AddToDate_3" sap:VirtualizedContainerService.HintSize="906,22" />
+      <sap2010:ViewStateData Id="CompareDate_3" sap:VirtualizedContainerService.HintSize="906,22" />
+      <sap2010:ViewStateData Id="Assign_56" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_38" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_57" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="WriteLine_39" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="Catch`1_3" sap:VirtualizedContainerService.HintSize="404,20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_3" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_78" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="AddToDate_4" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="CompareDate_4" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="Assign_58" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_39" sap:VirtualizedContainerService.HintSize="464,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_48" sap:VirtualizedContainerService.HintSize="486,453">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_59" sap:VirtualizedContainerService.HintSize="751,598">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_51" sap:VirtualizedContainerService.HintSize="773,722">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_54" sap:VirtualizedContainerService.HintSize="906,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_29" sap:VirtualizedContainerService.HintSize="1070,3298">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_22" sap:VirtualizedContainerService.HintSize="1070,60" />
+      <sap2010:ViewStateData Id="Assign_71" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="SendMail_8" sap:VirtualizedContainerService.HintSize="314,144" />
+      <sap2010:ViewStateData Id="Sequence_46" sap:VirtualizedContainerService.HintSize="336,368">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_59" sap:VirtualizedContainerService.HintSize="823,60" />
+      <sap2010:ViewStateData Id="Break_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="WriteLine_13" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="If_40" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_60" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_61" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_62" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_41" sap:VirtualizedContainerService.HintSize="240,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_31" sap:VirtualizedContainerService.HintSize="262,274">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_42" sap:VirtualizedContainerService.HintSize="527,419">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_63" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_43" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_44" sap:VirtualizedContainerService.HintSize="752,564">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_32" sap:VirtualizedContainerService.HintSize="774,688">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_64" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_45" sap:VirtualizedContainerService.HintSize="464,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_46" sap:VirtualizedContainerService.HintSize="1263,833">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_33" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_34" sap:VirtualizedContainerService.HintSize="222,264">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_6" sap:VirtualizedContainerService.HintSize="823,396">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_65" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_47" sap:VirtualizedContainerService.HintSize="823,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_20" sap:VirtualizedContainerService.HintSize="336,60" />
+      <sap2010:ViewStateData Id="Break_4" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="WriteLine_14" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="If_48" sap:VirtualizedContainerService.HintSize="505,205">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_73" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="Assign_74" sap:VirtualizedContainerService.HintSize="240,60" />
+      <sap2010:ViewStateData Id="If_55" sap:VirtualizedContainerService.HintSize="505,205" />
+      <sap2010:ViewStateData Id="AppendLine_3" sap:VirtualizedContainerService.HintSize="505,87" />
+      <sap2010:ViewStateData Id="Sequence_35" sap:VirtualizedContainerService.HintSize="200,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_7" sap:VirtualizedContainerService.HintSize="336,193">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Comment_7" sap:VirtualizedContainerService.HintSize="314,75" />
+      <sap2010:ViewStateData Id="CreateDirectory_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="CopyFile_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_37" sap:VirtualizedContainerService.HintSize="336,323">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_38" sap:VirtualizedContainerService.HintSize="358,780">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_49" sap:VirtualizedContainerService.HintSize="491,926">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Comment_8" sap:VirtualizedContainerService.HintSize="414,56" />
+      <sap2010:ViewStateData Id="WriteLine_21" sap:VirtualizedContainerService.HintSize="414,60" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_9" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_10" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_11" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ExcelWriteCell_12" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="336,592">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_4" sap:VirtualizedContainerService.HintSize="414,701">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelCloseWorkbook_2" sap:VirtualizedContainerService.HintSize="414,59" />
+      <sap2010:ViewStateData Id="Sequence_40" sap:VirtualizedContainerService.HintSize="823,1120">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_42" sap:VirtualizedContainerService.HintSize="336,60" />
+      <sap2010:ViewStateData Id="Assign_66" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="SendMail_5" sap:VirtualizedContainerService.HintSize="314,144">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_41" sap:VirtualizedContainerService.HintSize="336,495">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_52" sap:VirtualizedContainerService.HintSize="358,719">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_15" sap:VirtualizedContainerService.HintSize="418,60" />
+      <sap2010:ViewStateData Id="Assign_72" sap:VirtualizedContainerService.HintSize="418,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="418,87" />
+      <sap2010:ViewStateData Id="WriteLine_40" sap:VirtualizedContainerService.HintSize="418,60" />
+      <sap2010:ViewStateData Id="SendMail_9" sap:VirtualizedContainerService.HintSize="314,144">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_41" sap:VirtualizedContainerService.HintSize="213,60" />
+      <sap2010:ViewStateData Id="Catch`1_4" sap:VirtualizedContainerService.HintSize="404,20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_4" sap:VirtualizedContainerService.HintSize="418,366" />
+      <sap2010:ViewStateData Id="Sequence_49" sap:VirtualizedContainerService.HintSize="440,917">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_50" sap:VirtualizedContainerService.HintSize="823,1062">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_47" sap:VirtualizedContainerService.HintSize="845,3217">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_53" sap:VirtualizedContainerService.HintSize="1206,3362">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_42" sap:VirtualizedContainerService.HintSize="1228,8314">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_5" sap:VirtualizedContainerService.HintSize="314,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelCloseWorkbook_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Sequence_28" sap:VirtualizedContainerService.HintSize="336,700">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="697,846">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="719,1070">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="944,1216">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="464,50">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_12" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="527,835">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Process_email_1" sap:VirtualizedContainerService.HintSize="567,1115" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

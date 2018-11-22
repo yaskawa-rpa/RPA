@@ -1,0 +1,25 @@
+{
+  "name": "ZM011",
+  "description": "财务手工开票",
+  "main": "ZM011.xaml",
+  "dependencies": {
+    "System.Console": "4.3.0.0",
+    "System.Diagnostics.Debug": "4.3.0.0",
+    "System.Resources.ResourceManager": "4.3.0.0",
+    "UiPath.Core.Activities": "17.1.6435.21841",
+    "UiPath.Database.Activities": "1.2.6863.32528",
+    "UiPath.Excel.Activities": "2.4.6863.30657",
+    "UiPath.Mail.Activities": "1.2.6863.29868",
+    "UiPath.PDF.Activities": "1.2.6863.34697",
+    "UiPath.WebAPI.Activities": "1.2.6863.33980",
+    "UiPathTeam.Excel.Extensions.Activities": "1.0.4.0"
+  },
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6890.28024",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

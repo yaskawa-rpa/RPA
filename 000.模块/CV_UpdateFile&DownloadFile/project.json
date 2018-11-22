@@ -1,0 +1,14 @@
+{
+  "name": "CV_UpdateFile&DownloadFile",
+  "description": "金库化服务器更新/下载文件模块",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6534.18305",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

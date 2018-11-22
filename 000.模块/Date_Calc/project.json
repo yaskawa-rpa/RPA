@@ -1,0 +1,14 @@
+{
+  "name": "Date_Calc",
+  "description": "日期计算模块",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6541.19660",
+  "packOptions": {},
+  "runtimeOptions": {}
+}
