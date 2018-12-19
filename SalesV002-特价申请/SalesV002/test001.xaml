@@ -124,7 +124,9 @@
         </Sequence>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>dz1EOlxSUEFcLVNvdXJjZS1cU2FsZXNWMDAyLeeJueS7t+eUs+ivt1xTYWxlc1YwMDJcdGVzdDAwMS54YW1sDz8DgAEOAgEBRAVkFQIBEmUFbA4CAQ5tBX4KAgECajBqOQIBEWcxZ0ICAQ9tE228AQIBA28Jb3kCAQxyCXwUAgEEb2BvdgIBDXMLehQCAQh7C3u0AQIBBXg4eFkCAQt1OXVCAgEJe2J7sQECAQY=</sads:DebugSymbol.Symbol>
+    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[math.Round(double.Parse(&quot;45.7&quot;) / 100 * 0.5 * double.Parse(&quot;3000.55&quot;),3).ToString]" />
+    <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[(&quot;0&quot;=&quot;0&quot;).ToString]" />
+    <sads:DebugSymbol.Symbol>dz1EOlxSUEFcLVNvdXJjZS1cU2FsZXNWMDAyLeeJueS7t+eUs+ivt1xTYWxlc1YwMDJcdGVzdDAwMS54YW1sEz8DggEOAgEBRAVkFQIBFmUFbA4CARJtBX4KAgEGfwV/yAECAQSAAQWAAYkBAgECajBqOQIBFWcxZ0ICARNtE228AQIBB28Jb3kCARByCXwUAgEIf1x/xQECAQWAAVyAAYYBAgEDb2BvdgIBEXMLehQCAQx7C3u0AQIBCXg4eFkCAQ91OXVCAgENe2J7sQECAQo=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -152,7 +154,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="503.333333333333,52">
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="242.666666666667,52">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -160,7 +162,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="503.333333333333,60" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
       <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="213.333333333333,62" />
       <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
       <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="242.666666666667,62" />
@@ -171,22 +173,24 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="503.333333333333,436">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="242.666666666667,52">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="525.333333333333,752">
+      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="242.666666666667,62" />
+      <sap2010:ViewStateData Id="WriteLine_5" sap:VirtualizedContainerService.HintSize="242.666666666667,62" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="264.666666666667,572">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="test001_1" sap:VirtualizedContainerService.HintSize="565.333333333333,1072" />
+      <sap2010:ViewStateData Id="test001_1" sap:VirtualizedContainerService.HintSize="304.666666666667,652" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
