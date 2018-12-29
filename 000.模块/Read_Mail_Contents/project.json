@@ -1,0 +1,14 @@
+{
+  "name": "Read_Mail_Contents",
+  "description": "ReadMailContents",
+  "main": "ReadMailContents.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6937.17898",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

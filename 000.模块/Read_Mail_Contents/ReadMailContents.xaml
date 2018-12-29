@@ -83,6 +83,8 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_12">
@@ -118,7 +120,7 @@
                     <OutArgument x:TypeArguments="x:String">[strCCTemp]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[strCCTemp.Replace("""""","""")]</InArgument>
+                    <InArgument x:TypeArguments="x:String">[strCCTemp.Replace("'","").Replace("""""","""")]</InArgument>
                   </Assign.Value>
                 </Assign>
               </If.Else>
@@ -133,17 +135,17 @@
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
     <ui:ExcelCloseWorkbook DisplayName="Close Workbook" sap2010:WorkflowViewState.IdRef="ExcelCloseWorkbook_1" Workbook="[tmpWorkbook3]" />
-    <sads:DebugSymbol.Symbol>dztEOlxSUEFcU2FsZXNNMDAyLVRva2thQXBwbHlcU2FsZXNNMDAyXFJlYWRNYWlsQ29udGVudHMueGFtbBxYA4kBDgIBAVwFhgEgAgEFhwEFhwGMAQIBAlzWAVzmAQIBJlz0AVyDAgIBJGILgwEWAgEGhwF5hwGJAQIBA2MNZyACAR9oDWwgAgEabQ1xIAIBFXINfRICAQx+DYIBIAIBB2MkYygCASNlOWVJAgEhY4cBY48BAgEgaCRoKAIBHmo5akYCARxohAFojAECARttJG0oAgEZbzlvRAIBF22CAW2KAQIBFnIbck0CAQ10EXsaAgEQfiR+KAIBC4ABOYABRgIBCX6EAX6MAQIBCHk8eVwCARN2PXZIAgER</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0NEOlxSUEFcLVNvdXJjZS1cMDAwLuaooeWdl1xSZWFkX01haWxfQ29udGVudHNcUmVhZE1haWxDb250ZW50cy54YW1sHFoDiwEOAgEBXgWIASACAQWJAQWJAYwBAgECXtYBXuYBAgEmXvQBXoMCAgEkZAuFARYCAQaJAXmJAYkBAgEDZQ1pIAIBH2oNbiACARpvDXMgAgEVdA1/EgIBDIABDYQBIAIBB2UkZSgCASNnOWdJAgEhZYcBZY8BAgEgaiRqKAIBHmw5bEYCARxqhAFqjAECARtvJG8oAgEZcTlxRAIBF2+CAW+KAQIBFnQbdE0CAQ12EX0aAgEQgAEkgAEoAgELggE5ggFGAgEJgAGEAYABjAECAQh7PHtsAgETeD14SAIBEQ==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="ExcelReadCell_10" sap:VirtualizedContainerService.HintSize="464,59" />
-      <sap2010:ViewStateData Id="ExcelReadCell_11" sap:VirtualizedContainerService.HintSize="464,59" />
-      <sap2010:ViewStateData Id="ExcelReadCell_12" sap:VirtualizedContainerService.HintSize="464,59" />
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="240,60" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,205" />
-      <sap2010:ViewStateData Id="ExcelReadCell_13" sap:VirtualizedContainerService.HintSize="464,59" />
-      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="486,725">
+      <sap2010:ViewStateData Id="ExcelReadCell_10" sap:VirtualizedContainerService.HintSize="464,58.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelReadCell_11" sap:VirtualizedContainerService.HintSize="464,58.6666666666667" />
+      <sap2010:ViewStateData Id="ExcelReadCell_12" sap:VirtualizedContainerService.HintSize="464,58.6666666666667" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,208.666666666667" />
+      <sap2010:ViewStateData Id="ExcelReadCell_13" sap:VirtualizedContainerService.HintSize="464,58.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="486,727.333333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -151,7 +153,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_3" sap:VirtualizedContainerService.HintSize="500,834">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_3" sap:VirtualizedContainerService.HintSize="500,836">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -159,15 +161,15 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelCloseWorkbook_1" sap:VirtualizedContainerService.HintSize="500,59" />
-      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="522,1057">
+      <sap2010:ViewStateData Id="ExcelCloseWorkbook_1" sap:VirtualizedContainerService.HintSize="500,58.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="522,1058.66666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ReamMailContents_1" sap:VirtualizedContainerService.HintSize="562,1177" />
+      <sap2010:ViewStateData Id="ReamMailContents_1" sap:VirtualizedContainerService.HintSize="562,1138.66666666667" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

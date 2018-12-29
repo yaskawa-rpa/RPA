@@ -396,7 +396,7 @@
                                       <Variable x:TypeArguments="x:String" Name="strSubjectTemp1" />
                                       <Variable x:TypeArguments="x:String" Name="newReply" />
                                     </Sequence.Variables>
-                                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="ReadMailContents.xaml">
+                                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="D:\RPA\000.模块\Read_Mail_Contents\ReadMailContents.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
                                         <OutArgument x:TypeArguments="x:String" x:Key="strSubjectTemp">[strSubjectTemp1]</OutArgument>
                                         <OutArgument x:TypeArguments="x:String" x:Key="strFromTemp">[strFromTemp1]</OutArgument>
@@ -438,7 +438,7 @@
                                       <Variable x:TypeArguments="x:String" Name="strSubjectTemp1" />
                                       <Variable x:TypeArguments="x:String" Name="newReply" />
                                     </Sequence.Variables>
-                                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="ReadMailContents.xaml">
+                                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="D:\RPA\000.模块\Read_Mail_Contents\ReadMailContents.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
                                         <OutArgument x:TypeArguments="x:String" x:Key="strSubjectTemp">[strSubjectTemp1]</OutArgument>
                                         <OutArgument x:TypeArguments="x:String" x:Key="strFromTemp">[strFromTemp1]</OutArgument>
@@ -554,7 +554,7 @@
         <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="SalesV002 process ended." />
       </Sequence>
     </TryCatch.Finally>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzZEOlxSUEFcU2FsZXNWMDAyLeeJueS7t+eUs+ivt1xTYWxlc1YwMDJcTWFpbi1WMDAyLnhhbWyoAVkDrgQOAgEBXgeBBBMCARSkBAerBBICAQyJBAufBCMCAQJjOGNAAgEaZDhkTQIBGWU4ZVgCARhmOGZCAgEXZzhn/QECARZoOWhAAgEVbw1vmQEDAesBchHEAhwDAa0BxwIV3wMgAgEq4gMZ7gMkAgEd8QMd8QOnAQIBG6UECakEDgIBD6oECaoEkwECAQ2TBE6TBFECAQubBEubBF0CAQqRBFCRBHkCAQmLBEuLBFACAQicBEycBFQCAQeSBE2SBHcCAQSJBLgBiQTbAQIBA296b5YBAwHsAXMTehwDAeYBexN7uQMDAdkBfBO8ASADAbIBvQETwwEjAwGxAcQBE8QBvwEDAbABxQETywEjAwGvAcwBE8MCIwMBrgHMAhf1AhwDAZgB9gIX9gLkAQMBkgH3Ahf7AikDAYwB/AIX3gMkAgEr4wMb7QMzAgEe8QOKAfEDpAECARylBBelBC8CARCnBA2nBJQBAgERqgR2qgSQAQIBDng+eFcDAekBdT91RgMB5wF7sgN7tgMDAeUBe5wBe6UBAwHjAXvzAnv4AgMB4gF7rQJ7vQIDAeABe5gDe60DAwHeAXvhAnvtAgMB3AF7+gF7kQIDAdoBfI0BfJ0BAwHXAYIBGbkBJAMBswHMAiXMAjcDAZkBzgIb3wImAwGkAeICG/MCJgMBmwH2AqAB9gK3AQMBlwH2AskB9gLhAQMBlQH2Aj72AkgDAZMB9wKxAfcCuwEDAZAB9wJ19wJ/AwGOAfcC8QH3ArUCAwGNAfwCjAH8ApsBAwGLAYIDHdsDKAIBLOYDXOYDawIBKOgDZugDfwIBJukDWekDZAIBJOUDYuUDagIBIucDV+cDYQIBIOMDzQHjA+oBAgEfpwQ3pwRBAgESgwEbuAEgAwG0Ac8CHdYCJgMBqQHXAh3eAiYDAaUB4wId6gImAwGgAesCHfICJgMBnAGDAx+DA78BAwGJAYQDH4QDyQEDAYcBhQMfrgMkAgFarwMf2gMkAgEtgwEpgwE/AwG1AYUBH7YBKgMBtwHUAkjUArYBAwGsAdECSdECXwMBqgHcAkjcAnIDAagB2QJJ2QJfAwGmAegCSOgCsQEDAaMB5QJJ5QJfAwGhAfACSPACcQMBnwHtAkntAl8DAZ0BgwN3gwO8AQMBigGEA3eEA8YBAwGIAYUDLYUDZAIBW4cDI6wDLgIBXK8DLa8DZAIBLrEDI9gDLgIBL4YBIbQBLAMBuwG1ASG1Aa4BAwG4AY8DJZcDPQIBfJgDJZ8DLgIBeKADJaADqAECAXWhAyWhA7ABAgFyogMlpgMzAgFipwMlqwM6AgFduQMlwQM9AgFPwgMlyQMuAgFLygMlygO9AgIBScsDJdEDMwIBN9IDJdIDqAECATXTAyXXAzoCATCIASWSAT0DAccBmgEpsAFBAwG8AbUBebUBqwEDAbkBkwNjkwNvAwGFAZEDaJEDeQMBgwGVA2SVA4UBAwGCAZQDZZQDcwMBgAGSA2WSA3MCAX6PA90BjwOVAgIBfZoDUZoDWwIBeaADfaADpQECAXahA32hA60BAgFzogPhA6ID8QMCAXCiA7ABogO+AQIBbqIDkgGiA6wBAgFrogOyA6ID3QMCAWmiA+oBogOFAgIBZ6ID8QKiA/UCAgFmogOVA6IDqQMCAWWiA98CogPrAgIBY6cDzAGnA9YBAgFgqQNlqQOEAQIBX6cDjwKnA5YDAgFevQNjvQNvAgFYuwNouwN5AgFWvwNkvwOFAQIBVb4DZb4DcwIBU7wDZbwDcwIBUbkD3gG5A5YCAgFQxANRxANbAgFMygOSAcoDugICAUrLA+8DywP/AwIBR84DUs4D0AECAUbLA74BywPMAQIBRMsDkgHLA7oBAgFAywPAA8sD6wMCAT7LA/gBywOTAgIBPMsD/wLLA4MDAgE7ywOjA8sDtwMCATrLA+0CywP5AgIBONIDfdIDpQECATbTA8wB0wPWAQIBM9UDZdUDhAECATLTA48C0wOWAwIBMYsBdosBiAEDAdUBigFdigFoAwHTAY0Ba40BcQMB0QGQAWOQAW4DAc8BjgFljgFsAwHNAYwBYIwBbgMBywGIAdIBiAHmAQMBygGPAWmPAXMDAcgBpAFspAFvAwHGAawBaawBewMBxQGiAW6iAa4BAwHDAZwBaZwBbgMBwgGtAWqtAXIDAcEBowFrowGVAQMBvgGaAdYBmgH5AQMBvQE=</sads:DebugSymbol.Symbol>
   </TryCatch>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -863,7 +863,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="200,52">
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="576,3316.66666666667">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -969,8 +969,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="640,973.333333333333" />
-      <sap2010:ViewStateData Id="Mail_Trigger_Sample_1" sap:VirtualizedContainerService.HintSize="680,1053.33333333333" />
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="640,1013.33333333333" />
+      <sap2010:ViewStateData Id="Mail_Trigger_Sample_1" sap:VirtualizedContainerService.HintSize="680,1133.33333333333" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
