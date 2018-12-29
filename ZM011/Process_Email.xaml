@@ -796,7 +796,7 @@
                                             <InArgument x:TypeArguments="x:String" xml:space="preserve">["您好！&lt;BR&gt;&lt;BR&gt;" + "您的开票数据处理结果如下：“ &amp; strWebServiceResult &amp; “[” &amp; strWebServiceMessage  &amp; ”]&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;From RPA&lt;BR&gt;"]</InArgument>
                                           </Assign.Value>
                                         </Assign>
-                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="ReadMailContents.xaml">
+                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadMailContents workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="D:\RPA\000.模块\Read_Mail_Contents\ReadMailContents.xaml">
                                           <ui:InvokeWorkflowFile.Arguments>
                                             <OutArgument x:TypeArguments="x:String" x:Key="strSubjectTemp">[strSubjectTemp]</OutArgument>
                                             <OutArgument x:TypeArguments="x:String" x:Key="strFromTemp">[strFromTemp]</OutArgument>
