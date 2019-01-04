@@ -1,6 +1,6 @@
 {
-  "name": "IT-001.定时远程登陆服务器",
-  "description": "定时远程登陆服务器",
+  "name": "IT-002.定时远程登陆2.10",
+  "description": "定时远程登陆2.10",
   "main": "Main.xaml",
   "dependencies": {
     "Microsoft.Activities": "1.0.1.0",
