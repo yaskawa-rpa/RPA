@@ -1,0 +1,158 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="test001" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="test001_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="test001" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey to save as " EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="f12" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+      <ui:SendHotkey.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+      </ui:SendHotkey.Target>
+    </ui:SendHotkey>
+    <Delay Duration="00:00:02" sap2010:WorkflowViewState.IdRef="Delay_1" />
+    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'push button  打开'" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+      <ui:Click.CursorPosition>
+        <ui:CursorPosition Position="Center">
+          <ui:CursorPosition.OffsetX>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetX>
+          <ui:CursorPosition.OffsetY>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetY>
+        </ui:CursorPosition>
+      </ui:Click.CursorPosition>
+      <ui:Click.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d7f99e10404555edf0e05062312ad555" Selector="&lt;wnd app='excel.exe' cls='#32770' title='另存为' /&gt;&lt;wnd aaname='浏览器窗格' cls='DirectUIHWND' /&gt;&lt;wnd aaname='保存类型:' cls='ComboBox' /&gt;&lt;ctrl name='保存类型:' role='combo box' /&gt;&lt;ctrl automationid='DropDown' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:Click.Target>
+      <sap2010:WorkflowViewState.IdRef>Click_3</sap2010:WorkflowViewState.IdRef>
+    </ui:Click>
+    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select item 'push button  打开'" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="Excel 工作簿(*.xlsx)">
+      <ui:SelectItem.Items>
+        <scg:List x:TypeArguments="x:String" Capacity="32">
+          <x:String>Excel 工作簿(*.xlsx)</x:String>
+          <x:String>Excel 启用宏的工作簿(*.xlsm)</x:String>
+          <x:String>Excel 二进制工作簿(*.xlsb)</x:String>
+          <x:String>Excel 97-2003 工作簿(*.xls)</x:String>
+          <x:String>XML 数据(*.xml)</x:String>
+          <x:String>单个文件网页(*.mht;*.mhtml)</x:String>
+          <x:String>网页(*.htm;*.html)</x:String>
+          <x:String>Excel 模板(*.xltx)</x:String>
+          <x:String>Excel 启用宏的模板(*.xltm)</x:String>
+          <x:String>Excel 97-2003 模板(*.xlt)</x:String>
+          <x:String>文本文件(制表符分隔)(*.txt)</x:String>
+          <x:String>Unicode 文本(*.txt)</x:String>
+          <x:String>XML 电子表格 2003 (*.xml)</x:String>
+          <x:String>Microsoft Excel 5.0/95 工作簿(*.xls)</x:String>
+          <x:String>CSV (逗号分隔)(*.csv)</x:String>
+          <x:String>带格式文本文件(空格分隔)(*.prn)</x:String>
+          <x:String>DIF (数据交换格式)(*.dif)</x:String>
+          <x:String>SYLK (符号链接)(*.slk)</x:String>
+          <x:String>Excel 加载宏(*.xlam)</x:String>
+          <x:String>Excel 97-2003 加载宏(*.xla)</x:String>
+          <x:String>PDF (*.pdf)</x:String>
+          <x:String>XPS 文档(*.xps)</x:String>
+          <x:String>Strict Open XML 电子表格(*.xlsx)</x:String>
+          <x:String>OpenDocument 电子表格(*.ods)</x:String>
+        </scg:List>
+      </ui:SelectItem.Items>
+      <ui:SelectItem.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b8e92b2a1900ba103e29a4b8a7d08b50" Selector="&lt;wnd app='excel.exe' cls='#32770' title='另存为' /&gt;&lt;wnd aaname='浏览器窗格' cls='DirectUIHWND' /&gt;&lt;wnd aaname='保存类型:' cls='ComboBox' /&gt;&lt;ctrl name='保存类型:' role='combo box' /&gt;&lt;ctrl automationid='DropDown' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:SelectItem.Target>
+    </ui:SelectItem>
+    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into 'Edit'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="cs-report.xlsx">
+      <ui:TypeInto.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4907917b87dbeaac9b87e5b90c59256a" Selector="&lt;wnd app='excel.exe' cls='#32770' title='另存为' /&gt;&lt;wnd aaname='浏览器窗格' cls='DirectUIHWND' /&gt;&lt;wnd aaname='文件名:' cls='ComboBox' /&gt;&lt;wnd ctrlid='1001' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:TypeInto.Target>
+    </ui:TypeInto>
+    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+      <ui:Click.CursorPosition>
+        <ui:CursorPosition Position="Center">
+          <ui:CursorPosition.OffsetX>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetX>
+          <ui:CursorPosition.OffsetY>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetY>
+        </ui:CursorPosition>
+      </ui:Click.CursorPosition>
+      <ui:Click.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e2a93f62897eb7138caf9ead75c3a683" Selector="&lt;wnd app='excel.exe' cls='#32770' title='另存为' /&gt;&lt;wnd ctrlid='1' title='保存(&amp;amp;S)' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:Click.Target>
+    </ui:Click>
+    <ui:CloseApplication ContinueOnError="True" DisplayName="Close application 'EXCEL.EXE cs-report.xlsx'" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+      <ui:CloseApplication.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a64200edc33e495330640f6391c556c5" Selector="&lt;wnd app='excel.exe' cls='XLMAIN' title='cs-report.xlsx - Excel' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:CloseApplication.Target>
+    </ui:CloseApplication>
+    <sads:DebugSymbol.Symbol>dzlEOlxSUEFcU2FsZXNNMDA1LUNT5Ye65bqT5Y2V5Y+R6YCBXFNhbGVzTTAwNVx0ZXN0MDAxLnhhbWwROAOKAQ4CAQE5BT0VAgERPgU+TAIBDz8FThACAQ1PBW8VAgEKcAV0EwIBB3UFgwEQAgEFhAEFiAEbAgECPhU+HwIBEEuYAUv8AgIBDk+8AU/PAQIBC22YAW38AgIBDHKYAXLEAgIBCXCWAnCmAgIBCIEBmAGBAf8BAgEGhgGYAYYB4wECAQSEASqEATACAQM=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="SendHotkey_1" sap:VirtualizedContainerService.HintSize="314,116.666666666667" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Click_3" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="SelectItem_2" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="CloseApplication_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,1088.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="test001_1" sap:VirtualizedContainerService.HintSize="376,1288.66666666667" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

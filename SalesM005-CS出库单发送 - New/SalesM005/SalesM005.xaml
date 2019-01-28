@@ -1,0 +1,156 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="SalesM005"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:snm="clr-namespace:System.Net.Mail;assembly=System"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="htParams" Type="InArgument(sc:Hashtable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>SalesM005_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="SalesM005" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="snm:MailMessage" Name="tmpMail" />
+      <Variable x:TypeArguments="snm:Attachment" Name="tmpAttachment" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="Work_Mode" />
+      <Variable x:TypeArguments="x:String" Default="rpa@yaskawa.com.cn" Name="Mail_Account" />
+      <Variable x:TypeArguments="x:String" Default="1qaz@WSX" Name="Mail_Account_PWD" />
+    </Sequence.Variables>
+    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;SalesM005 Started.&quot;]" />
+    <If Condition="[htParams is nothing]" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Warn" Message="[&quot;SalesM005 param is nothing.&quot;]" />
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <If Condition="[htparams.Item(&quot;Mail&quot;) is nothing]" sap2010:WorkflowViewState.IdRef="If_3">
+            <If.Then>
+              <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Warn" Message="[&quot;SalesM005 mail param is nothing.&quot;]" />
+            </If.Then>
+            <If.Else>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="snm:MailMessage">[tmpMail]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="snm:MailMessage">[directcast(htparams.Item("Mail"),MailMessage)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke workflow file" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="D:\RPA\SalesM005-CS出库单发送 - New\SalesM005\Process_Email.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="snm:MailMessage" x:Key="mailMessage">[tmpMail]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="mail_account">[Mail_Account]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="mail_account_pwd">[Mail_Account_PWD]</InArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="Work_Mode">[Work_Mode]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;SalesM005 ended.&quot;]" />
+    <sads:DebugSymbol.Symbol>d0FEOlxSUEFcU2FsZXNNMDA1LUNT5Ye65bqT5Y2V5Y+R6YCBIC0gTmV3XFNhbGVzTTAwNVxTYWxlc00wMDUueGFtbBtFA3IOAgEBSTVJPAIBBEo0SkgCAQNLNEs+AgECTQVNlwECASFOBW8KAgEHcAVwlQECAQVNck2UAQIBIk4TTioCAQhQCVCkAQIBH1MJbRQCAQpwcnCSAQIBBlB2UKEBAgEgVAtsEAIBC1QZVEcCAQxWD1avAQIBHVkPahoCAQ5WfFasAQIBHloRYRoCARliEWkpAgEPX0NfcgIBHFxEXE0CARpkV2RgAgEXZ09nWgIBFWVRZV8CARNivQFi+gECARJmVWZnAgEQ</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="1038,93.3333333333333" />
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="314,93.3333333333333" />
+      <sap2010:ViewStateData Id="LogMessage_5" sap:VirtualizedContainerService.HintSize="314,93.3333333333333" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,61.3333333333333" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,86.6666666666667" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,312">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="676,464" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="698,588">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="1038,740">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="1038,93.3333333333333" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="1060,1130.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SalesM005_1" sap:VirtualizedContainerService.HintSize="1100,1210.66666666667" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
