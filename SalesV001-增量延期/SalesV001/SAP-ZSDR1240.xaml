@@ -49,13 +49,7 @@
       <x:String>UiPath.CSV.Activities</x:String>
       <x:String>UiPath.Excel</x:String>
       <x:String>UiPath.CSV</x:String>
-      <x:String>UiPath.Checkpoint.Activities</x:String>
-      <x:String>UiPath.DataTable.Activities</x:String>
-      <x:String>UiPath.Dialog.Activities</x:String>
       <x:String>UiPath.FileSystem.Activities</x:String>
-      <x:String>UiPath.Framework.Activities</x:String>
-      <x:String>UiPath.PowerShell.Activities</x:String>
-      <x:String>UiPath.RegEx.Activities</x:String>
       <x:String>UiPath.FTP.Activities</x:String>
       <x:String>UiPath.Mail.Activities</x:String>
       <x:String>UiPath.Mail.Exchange.Activities</x:String>
@@ -83,12 +77,9 @@
       <AssemblyReference>System.Core</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>UiPath.Core</AssemblyReference>
-      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
-      <AssemblyReference>UiPath.Framework.Activities</AssemblyReference>
       <AssemblyReference>UiPath.FTP.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
@@ -102,7 +93,9 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <TryCatch DisplayName="Execute SAP Operation" sap2010:WorkflowViewState.IdRef="TryCatch_1">
@@ -171,7 +164,7 @@
                     <OutArgument x:TypeArguments="x:String">[tmpErrorMailCC]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">["zhangbo@yaskawa.com.cn; jf_shen@yaskawa.com.cn; zhangwei@yaskawa.com.cn; feisiwen@yaskawa.com.cn; zhouluyi@yaskawa.com.cn; huchenfei@yaskawa.com.cn; linxu@yaskawa.com.cn; zsx714@yaskawa.com.cn; zouxiaoyan@yaskawa.com.cn"]</InArgument>
+                    <InArgument x:TypeArguments="x:String">["qqzh@yaskawa.com.cn; zhangbo@yaskawa.com.cn; jf_shen@yaskawa.com.cn; zhangwei@yaskawa.com.cn; feisiwen@yaskawa.com.cn; zhouluyi@yaskawa.com.cn; huchenfei@yaskawa.com.cn; linxu@yaskawa.com.cn; zsx714@yaskawa.com.cn; zouxiaoyan@yaskawa.com.cn"]</InArgument>
                   </Assign.Value>
                 </Assign>
                 <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_7">
@@ -185,7 +178,7 @@
             </If.Else>
           </If>
         </Sequence>
-        <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtData2]" DisplayName="Execute query(get fl_auto_no list)" ExistingDbConnection="[dbconn]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" Sql="select sap_apply_no,line_no,case when final_date is null then left(to_date,8) else left(final_date,8) end as final_date,&#xD;&#xA;tokka_quantity,&#xD;&#xA;case when tokka_final_quantity is null then tokka_quantity else tokka_final_quantity+tokka_quantity end as tokka_final_quantity,&#xD;&#xA;cancel_flag,fl_auto_no&#xD;&#xA;from (&#xD;&#xA;select ltrim(rtrim(replace(sap_apply_no,char(9),''))) as sap_apply_no,cast(line_no as int) as line_no ,case when final_date is null then apply_date else final_date end as final_date,&#xD;&#xA;case when tokka_final_quantity is null then tokka_apply_quantity else tokka_final_quantity end as tokka_final_quantity,&#xD;&#xA;case when cancel_flag='1' then 'Z1' else '' end as cancel_flag,&#xD;&#xA;fl_auto_no,tokka_quantity,to_date&#xD;&#xA;from FL_TR_RPA_SALES001_V where rpa_process_flag=@tmpflag ) as temp_table&#xD;&#xA;order by fl_auto_no, line_no">
+        <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtData2]" DisplayName="Execute query(get fl_auto_no list)" ExistingDbConnection="[dbconn]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" Sql="select sap_apply_no,line_no,case when final_date is null then left(to_date,8) else left(final_date,8) end as final_date,&#xA;tokka_quantity,&#xA;case when tokka_final_quantity is null then tokka_quantity else tokka_final_quantity+tokka_quantity end as tokka_final_quantity,&#xA;cancel_flag,fl_auto_no&#xA;from (&#xA;select ltrim(rtrim(replace(sap_apply_no,char(9),''))) as sap_apply_no,cast(line_no as int) as line_no ,case when final_date is null then apply_date else final_date end as final_date,&#xA;case when tokka_final_quantity is null then tokka_apply_quantity else tokka_final_quantity end as tokka_final_quantity,&#xA;case when cancel_flag='1' then 'Z1' else '' end as cancel_flag,&#xA;fl_auto_no,tokka_quantity,to_date&#xA;from FL_TR_RPA_SALES001_V where rpa_process_flag=@tmpflag ) as temp_table&#xA;order by fl_auto_no, line_no">
           <ui:ExecuteQuery.Parameters>
             <InArgument x:TypeArguments="x:String" x:Key="tmpflag">0</InArgument>
           </ui:ExecuteQuery.Parameters>
@@ -306,7 +299,7 @@
                           <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String,String)]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each(add key)" sap2010:WorkflowViewState.IdRef="ForEach`1_16" Values="[dtData2.Rows]">
+                      <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For each(add key)" sap2010:WorkflowViewState.IdRef="ForEach`1_16" Values="[dtData2.Rows]">
                         <ui:ForEach.Body>
                           <ActivityAction x:TypeArguments="sd:DataRow">
                             <ActivityAction.Argument>
@@ -344,7 +337,7 @@
                                 <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String,String)]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each(add key)" sap2010:WorkflowViewState.IdRef="ForEach`1_12" Values="[dtData2.Rows]">
+                            <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For each(add key)" sap2010:WorkflowViewState.IdRef="ForEach`1_12" Values="[dtData2.Rows]">
                               <ui:ForEach.Body>
                                 <ActivityAction x:TypeArguments="sd:DataRow">
                                   <ActivityAction.Argument>
@@ -367,7 +360,7 @@
                                 </ActivityAction>
                               </ui:ForEach.Body>
                             </ui:ForEach>
-                            <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each(remove key)" sap2010:WorkflowViewState.IdRef="ForEach`1_13" Values="[dtErrorData.Rows]">
+                            <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For each(remove key)" sap2010:WorkflowViewState.IdRef="ForEach`1_13" Values="[dtErrorData.Rows]">
                               <ui:ForEach.Body>
                                 <ActivityAction x:TypeArguments="sd:DataRow">
                                   <ActivityAction.Argument>
@@ -421,7 +414,7 @@
                   </If.Else>
                 </If>
                 <Sequence DisplayName="update the process flag on database of workflow" sap2010:WorkflowViewState.IdRef="Sequence_50">
-                  <ui:ForEach x:TypeArguments="x:String" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_15" Values="[tmpDic.Keys]">
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_15" Values="[tmpDic.Keys]">
                     <ui:ForEach.Body>
                       <ActivityAction x:TypeArguments="x:String">
                         <ActivityAction.Argument>
@@ -449,7 +442,7 @@
         <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_6">
           <ui:CommentOut.Body>
             <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_38">
-              <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[dtData2.Rows]">
+              <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[dtData2.Rows]">
                 <ui:ForEach.Body>
                   <ActivityAction x:TypeArguments="sd:DataRow">
                     <ActivityAction.Argument>
@@ -490,7 +483,7 @@
                             <If Condition="[sap_login_succeed]" sap2010:WorkflowViewState.IdRef="If_8">
                               <If.Then>
                                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_22">
-                                  <ui:ForEach x:TypeArguments="sd:DataRow" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[dtData3.Rows]">
+                                  <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[dtData3.Rows]">
                                     <ui:ForEach.Body>
                                       <ActivityAction x:TypeArguments="sd:DataRow">
                                         <ActivityAction.Argument>
@@ -737,24 +730,24 @@
         </Sequence>
       </Sequence>
     </TryCatch.Finally>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </TryCatch>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="WriteLine_22" sap:VirtualizedContainerService.HintSize="1510.66666666667,62" />
-      <sap2010:ViewStateData Id="DatabaseConnect_1" sap:VirtualizedContainerService.HintSize="314,58.6666666666667" />
+      <sap2010:ViewStateData Id="WriteLine_22" sap:VirtualizedContainerService.HintSize="1511,60" />
+      <sap2010:ViewStateData Id="DatabaseConnect_1" sap:VirtualizedContainerService.HintSize="314,59" />
       <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="314,60" />
       <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="314,60" />
       <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="314,60" />
       <sap2010:ViewStateData Id="Assign_22" sap:VirtualizedContainerService.HintSize="314,60" />
-      <sap2010:ViewStateData Id="Sequence_53" sap:VirtualizedContainerService.HintSize="336,582.666666666667">
+      <sap2010:ViewStateData Id="Sequence_53" sap:VirtualizedContainerService.HintSize="336,583">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_23" sap:VirtualizedContainerService.HintSize="242.666666666667,60" />
+      <sap2010:ViewStateData Id="Assign_23" sap:VirtualizedContainerService.HintSize="243,60" />
       <sap2010:ViewStateData Id="DatabaseConnect_2" sap:VirtualizedContainerService.HintSize="314,59" />
       <sap2010:ViewStateData Id="Sequence_52" sap:VirtualizedContainerService.HintSize="336,182.666666666667">
         <sap:WorkflowViewStateService.ViewState>
@@ -771,14 +764,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_56" sap:VirtualizedContainerService.HintSize="264.666666666667,276">
+      <sap2010:ViewStateData Id="Sequence_56" sap:VirtualizedContainerService.HintSize="265,276">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="626,732.666666666667">
+      <sap2010:ViewStateData Id="If_16" sap:VirtualizedContainerService.HintSize="626,729">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -786,7 +779,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="1510.66666666667,856.666666666667">
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="1511,853">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1238,7 +1231,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_16" sap:VirtualizedContainerService.HintSize="1532.66666666667,6904.66666666667">
+      <sap2010:ViewStateData Id="Sequence_16" sap:VirtualizedContainerService.HintSize="1533,6899">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1281,8 +1274,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="1550.66666666667,7176" />
-      <sap2010:ViewStateData Id="SAP_ZSDR1240_1" sap:VirtualizedContainerService.HintSize="1590.66666666667,7296" />
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="1551,7121" />
+      <sap2010:ViewStateData Id="SAP_ZSDR1240_1" sap:VirtualizedContainerService.HintSize="1591,7201" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
