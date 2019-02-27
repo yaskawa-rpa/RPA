@@ -1,0 +1,30 @@
+{
+  "name": "KE-002.R貸付品レポート",
+  "description": "(R)貸付品レポート",
+  "main": "Main.xaml",
+  "dependencies": {
+    "Microsoft.Activities": "1.0.1.0",
+    "Microsoft.Activities.Extensions": "2.0.6.9",
+    "Twilio.Workflow.Activities": "1.0.0.0",
+    "UiPath.Cognitive.Activities": "2.1.6863.31992",
+    "UiPath.Core.Activities": "17.1.6435.21841",
+    "UiPath.Credentials.Activities": "1.1.6479.13204",
+    "UiPath.Database.Activities": "1.1.6660.26865",
+    "UiPath.Excel.Activities": "2.3.6682.26635",
+    "UiPath.Framework.Activities": "1.0.5905.30080",
+    "UiPath.FTP.Activities": "1.0.6479.13206",
+    "UiPath.Mail.Activities": "1.1.6562.21018",
+    "UiPath.PDF.Activities": "1.2.6863.34697",
+    "UiPath.Terminal.Activities": "1.2.6863.33681",
+    "UiPath.WebAPI.Activities": "1.2.6863.33980",
+    "UiPath.Word.Activities": "1.2.6863.34260"
+  },
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.6967.16045",
+  "packOptions": {},
+  "runtimeOptions": {}
+}
