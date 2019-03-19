@@ -3,28 +3,42 @@
   "description": "(R)貸付品レポート",
   "main": "Main.xaml",
   "dependencies": {
-    "Microsoft.Activities": "1.0.1.0",
-    "Microsoft.Activities.Extensions": "2.0.6.9",
-    "Twilio.Workflow.Activities": "1.0.0.0",
-    "UiPath.Cognitive.Activities": "2.1.6863.31992",
-    "UiPath.Core.Activities": "17.1.6435.21841",
-    "UiPath.Credentials.Activities": "1.1.6479.13204",
-    "UiPath.Database.Activities": "1.1.6660.26865",
-    "UiPath.Excel.Activities": "2.3.6682.26635",
-    "UiPath.Framework.Activities": "1.0.5905.30080",
-    "UiPath.FTP.Activities": "1.0.6479.13206",
-    "UiPath.Mail.Activities": "1.1.6562.21018",
-    "UiPath.PDF.Activities": "1.2.6863.34697",
-    "UiPath.Terminal.Activities": "1.2.6863.33681",
-    "UiPath.WebAPI.Activities": "1.2.6863.33980",
-    "UiPath.Word.Activities": "1.2.6863.34260"
+    "Microsoft.Activities": "[1.0.1]",
+    "Microsoft.Activities.Extensions": "[2.0.6.9]",
+    "UiPath.Credentials.Activities": "[1.1.6479.13204]",
+    "Twilio.Workflow.Activities": "[1.0.0.3]",
+    "UiPath.Cognitive.Activities": "[2.2.0]",
+    "UiPath.Database.Activities": "[1.2.6863.32528]",
+    "UiPath.FTP.Activities": "[1.0.6710.16240]",
+    "UiPath.Mail.Activities": "[1.3.0]",
+    "UiPath.Terminal.Activities": "[1.3.0]",
+    "UiPath.Word.Activities": "[1.3.0]",
+    "UiPathTeam.File.Activities": "[1.0.4]",
+    "SAP_Library": "[1.0.6901.22229]",
+    "UiPath.System.Activities": "[19.2.0]",
+    "UiPath.Excel.Activities": "[2.5.2]",
+    "UiPath.UIAutomation.Activities": "[19.2.0]",
+    "UiPath.PDF.Activities": "[1.3.1]",
+    "UiPath.WebAPI.Activities": "[1.4.0]",
+    "UiPath": "[10.0.6957.21531]"
   },
-  "excludedData": [
-    "Private:*",
-    "*password*"
-  ],
-  "toolVersion": "17.1.6435.21855",
-  "projectVersion": "1.0.6967.16045",
-  "packOptions": {},
-  "runtimeOptions": {}
+  "schemaVersion": "3.2",
+  "studioVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.7013.31010",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  },
+  "arguments": {
+    "input": [],
+    "output": []
+  }
 }

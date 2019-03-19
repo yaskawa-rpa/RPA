@@ -103,7 +103,7 @@
           <Variable x:TypeArguments="x:String" Default="rpa@yaskawa.com.cn" Name="Const_IMAP_Mail_Account" />
           <Variable x:TypeArguments="x:String" Default="1qaz@WSX" Name="password" />
           <Variable x:TypeArguments="x:String" Default="&lt;BR&gt;&lt;BR&gt;此邮件由系统自动发送，请勿回复此邮件，如有问题请联系相关人员。&lt;BR&gt;This email is sent by system. Please DO NOT reply this email. If you have any questions, please contact with whom concerned.&lt;BR&gt;" Name="endingMessage" />
-          <Variable x:TypeArguments="x:Boolean" Default="False" Name="Work_Mode" />
+          <Variable x:TypeArguments="x:Boolean" Default="True" Name="Work_Mode" />
           <Variable x:TypeArguments="x:String" Name="Const_Connect_String" />
           <Variable x:TypeArguments="x:String" Name="tmpValue" />
           <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="listGetMail2" />
@@ -520,11 +520,11 @@
         <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="SalesM004 process ended." />
       </Sequence>
     </TryCatch.Finally>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </TryCatch>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="200,52">
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="200,53">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -722,7 +722,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="LogMessage_6" sap:VirtualizedContainerService.HintSize="314,89" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="200,52">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="200,53">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -854,7 +854,7 @@
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">190,225</av:Point>
-            <av:Size x:Key="ShapeSize">200,52</av:Size>
+            <av:Size x:Key="ShapeSize">200,53</av:Size>
             <av:PointCollection x:Key="ConnectorLocation">290,277 290,335</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -863,7 +863,7 @@
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">190,125</av:Point>
-            <av:Size x:Key="ShapeSize">200,52</av:Size>
+            <av:Size x:Key="ShapeSize">200,53</av:Size>
             <av:PointCollection x:Key="ConnectorLocation">290,177 290,225</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -873,7 +873,7 @@
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <av:Point x:Key="ShapeLocation">260,2.5</av:Point>
-            <av:Size x:Key="ShapeSize">60,74.6666666666667</av:Size>
+            <av:Size x:Key="ShapeSize">60,75</av:Size>
             <av:PointCollection x:Key="ConnectorLocation">290,77.5 290,125</av:PointCollection>
             <x:Double x:Key="Height">650</x:Double>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -906,8 +906,8 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="632,957.333333333333" />
-      <sap2010:ViewStateData Id="Mail_Trigger_Sample_1" sap:VirtualizedContainerService.HintSize="672,1077.33333333333" />
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="632,920" />
+      <sap2010:ViewStateData Id="Mail_Trigger_Sample_1" sap:VirtualizedContainerService.HintSize="672,1000" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
