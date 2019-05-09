@@ -1,0 +1,2 @@
+*/2 8-18 * * * "C:\Program Files (x86)\UiPath\Studio\UiRobot.exe" "/file" "D:\RPA\SalesM002-TokkaApply\SalesM002\Main-002.xaml"
+*/1 8-18 * * * "C:\Program Files (x86)\UiPath\Studio\UiRobot.exe" "/file" "D:\RPA\SalesM003-UserApply\SalesM003\Main-003.xaml"

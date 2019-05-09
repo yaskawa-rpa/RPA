@@ -1,0 +1,2 @@
+* * * * * "C:\Program Files (x86)\UiPath\Studio\UiRobot.exe" "/file" "D:\Java\Projects\CronTest\src\Main.xaml"
+* * * * * "C:\Program Files (x86)\UiPath\Studio\UiRobot.exe" "/file" "D:\Java\Projects\CronTest\src\Main2.xaml"

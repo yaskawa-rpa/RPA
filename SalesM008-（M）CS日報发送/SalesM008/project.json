@@ -1,0 +1,32 @@
+{
+  "name": "SalesM008",
+  "description": "M相关CS日报发送",
+  "main": "SalesM008.xaml",
+  "dependencies": {
+    "UiPath.Cognitive.Activities": "[2.2.0]",
+    "UiPath.Excel.Activities": "[2.5.1]",
+    "UiPath.IntelligentOCR.Activities": "[1.3.0]",
+    "UiPath.Mail.Activities": "[1.3.0]",
+    "UiPath.PDF.Activities": "[1.3.0]",
+    "UiPath.System.Activities": "[18.4.2]",
+    "UiPath.Terminal.Activities": "[1.3.0]",
+    "UiPath.UIAutomation.Activities": "[18.4.3]",
+    "UiPath.WebAPI.Activities": "[1.3.0]",
+    "UiPath.Word.Activities": "[1.3.0]"
+  },
+  "schemaVersion": "3.2",
+  "studioVersion": "17.1.6435.21855",
+  "projectVersion": "1.0.7017.17698",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  }
+}

@@ -1,0 +1,4 @@
+0 5 * * * C:\Windows\System32\notepad.exe
+0,30 * * * * OUT:D:\ping.txt ping 192.168.6.75
+0,46 * * * * "OUT:D:\ping.txt" ping 192.168.6.91
+0 1 * * * java:test.TestClass#testMethod "Iron Maiden" "Megadeth" "Black Sabbath" "Led Zeppelin" "Blind Guardian"

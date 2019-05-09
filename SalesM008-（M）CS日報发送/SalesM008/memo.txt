@@ -1,0 +1,6 @@
+1.通过RPA登录Salesforce下载CS报表（bihaoqing@yaskawa.com.cn）,访问【报表】-【售后(!)-RPA】
+2.修理编号的筛选，是在【报表】-【售后(!)-RPA】已经设置好。
+3.下载后的Excel：D:\RPA-DATA\SalesM-008\output\系统时间\cs-report.xlsx，通过RPA调用Macro-Tool.xlsm的init宏方法，根据template.xlsx生成cs-report-YYYYMM.xlsx。
+4.再通过调用【D:\RPA\000.模块\Read_MailTO_Setting】取得发送对象，把下载文件作为附件发送邮件。
+如果需要变更发送对象，需要维护D:\RPA\000.模块\Read_MailTO_Setting\Mail_Setting.xlsx中ID=SalesM008的邮件地址。
+5.如果当天是1日，会自动下载上个月的数据。
