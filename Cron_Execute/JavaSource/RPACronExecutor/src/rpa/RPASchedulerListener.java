@@ -1,3 +1,4 @@
+package rpa;
 /*
  * cron4j - A pure Java cron-like scheduler
  * 
@@ -16,10 +17,8 @@
  * License version 2.1 along with this program.
  * If not, see <http://www.gnu.org/licenses/>.
  */
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -30,9 +29,9 @@ import it.sauronsoftware.cron4j.TaskExecutor;
 /**
  * A very simple SchedulerListener, sending messages to the console.
  */
-public class MySchedulerListener implements SchedulerListener {
+public class RPASchedulerListener implements SchedulerListener {
 
-	static Logger log = Logger.getLogger(MySchedulerListener.class.getName());
+	static Logger log = Logger.getLogger(RPASchedulerListener.class.getName());
 	public void taskLaunching(TaskExecutor executor) {
 		log.info(executor.getTask().toString() + ":Task launched!");
 		//log.info("Task launched!");
@@ -97,7 +96,7 @@ public class MySchedulerListener implements SchedulerListener {
 		    while (scanner.hasNext()) {
 		    	String strtmp=scanner.nextLine();
 //		        System.out.println(strtmp);
-		        if(strtmp.contains("UiRobot.exe")) {
+		        if(strtmp.contains("UiRobot.exe") || strtmp.contains("UiPath.Executor.exe")) {
 //		        	System.out.println("UiRobot is running...,wait 10 seconds.");
 //		        	Thread.sleep(30L * 1000L);
 		        	tmp=true;
